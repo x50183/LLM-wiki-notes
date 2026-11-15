@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- 報酬スター（大正和風）：炎のオーラ -->
+  <defs>
+    <g id="flame">
+      <path d="M0 0 C -16 -10 -12 -32 0 -48 C 2 -32 16 -26 13 -10 C 12 -3 6 0 0 0Z" fill="#E8532F" stroke="#2B2024" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M0 -4 C -8 -10 -6 -22 0 -30 C 2 -20 8 -16 6 -8 C 5 -5 3 -4 0 -4Z" fill="#F2C14E"/>
+    </g>
+  </defs>
+  <use href="#flame" transform="translate(100 108) rotate(-70) translate(0 -52)"/>
+  <use href="#flame" transform="translate(100 108) rotate(-25) translate(0 -58)"/>
+  <use href="#flame" transform="translate(100 108) rotate(25) translate(0 -58)"/>
+  <use href="#flame" transform="translate(100 108) rotate(70) translate(0 -52)"/>
+  <path d="M100 30 L122 76 L172 82 L135 116 L145 168 L100 142 L55 168 L65 116 L28 82 L78 76 Z"
+        fill="#F2C14E" stroke="#2B2024" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M100 46 L114 76" stroke="#FFF4C8" stroke-width="5" stroke-linecap="round"/>
+  <g stroke="#2B2024" stroke-width="4.5" stroke-linecap="round">
+    <line x1="76" y1="94" x2="92" y2="99"/>
+    <line x1="124" y1="94" x2="108" y2="99"/>
+  </g>
+  <ellipse cx="86" cy="110" rx="6.5" ry="8.5" fill="#2B2024"/>
+  <ellipse cx="86" cy="113" rx="4" ry="5" fill="#B8323C"/>
+  <circle cx="84" cy="106" r="2.5" fill="#fff"/>
+  <ellipse cx="114" cy="110" rx="6.5" ry="8.5" fill="#2B2024"/>
+  <ellipse cx="114" cy="113" rx="4" ry="5" fill="#B8323C"/>
+  <circle cx="112" cy="106" r="2.5" fill="#fff"/>
+  <g stroke="#E06B7A" stroke-width="2.5" stroke-linecap="round">
+    <path d="M68 126 l4 -5 M73 126 l4 -5"/>
+    <path d="M124 126 l4 -5 M129 126 l4 -5"/>
+  </g>
+  <path d="M93 124 Q100 131 107 124 Z" fill="#B8323C" stroke="#2B2024" stroke-width="3" stroke-linejoin="round"/>
+  <g transform="rotate(8 166 34)">
+    <rect x="148" y="16" width="36" height="36" rx="4" fill="#B8323C" stroke="#2B2024" stroke-width="3"/>
+    <rect x="152" y="20" width="28" height="28" rx="2" fill="none" stroke="#F4EAD5" stroke-width="1.5"/>
+    <text x="166" y="41" text-anchor="middle" font-family="'Yu Mincho','MS Mincho','Noto Serif JP',serif" font-weight="bold" font-size="18" fill="#F4EAD5">+1</text>
+  </g>
+</svg>

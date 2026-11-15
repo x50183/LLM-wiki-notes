@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM + RL × 無人機 文獻導讀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reset.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+<style>
+:root{
+  --ink:#2B2024; --ai:#2E3A6B; --ai-soft:#DCE0EE; --shu:#B8323C; --shu-soft:#F3D9D6;
+  --kin:#D9A441; --kin-soft:#F6E6C2; --washi:#F4EAD5; --washi-2:#EADCBF; --muted:#6B5B57;
+  --sky:#3D7CC9;
+  /* 青海波 */
+  --seigaiha:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cg fill='%232E3A6B' stroke='%23F4EAD5' stroke-width='1.4'%3E%3Cg transform='translate(20 10)'%3E%3Ccircle r='19'/%3E%3Ccircle r='13' fill='none'/%3E%3Ccircle r='7' fill='none'/%3E%3C/g%3E%3Cg transform='translate(0 20)'%3E%3Ccircle r='19'/%3E%3Ccircle r='13' fill='none'/%3E%3Ccircle r='7' fill='none'/%3E%3C/g%3E%3Cg transform='translate(40 20)'%3E%3Ccircle r='19'/%3E%3Ccircle r='13' fill='none'/%3E%3Ccircle r='7' fill='none'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  /* 矢絣 */
+  --yagasuri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='32'%3E%3Crect width='24' height='32' fill='%23B8323C'/%3E%3Cpath d='M0 0 L12 8 L12 24 L0 16Z' fill='%23F4EAD5'/%3E%3Cpath d='M12 8 L24 0 L24 16 L12 24Z' fill='%238E2630'/%3E%3C/svg%3E");
+}
+html,body{background:var(--washi);}
+.reveal-viewport{
+  background-color:var(--washi);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(160,130,90,.07) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 80%, rgba(160,130,90,.06) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 45% 60%, rgba(160,130,90,.05) 0 1px, transparent 2px);
+  background-size:37px 41px, 53px 47px, 29px 31px;
+}
+.reveal{font-family:"Zen Maru Gothic",sans-serif;color:var(--ink);font-size:26px;}
+.reveal .slides{text-align:left;}
+.reveal .slides section{height:100%;padding:58px 72px 64px 92px !important;box-sizing:border-box;}
+.reveal h1,.reveal h2,.reveal h3{font-family:"Shippori Mincho",serif;color:var(--ink);text-transform:none;letter-spacing:.02em;margin:0;}
+.reveal h2{font-size:46px;font-weight:800;line-height:1.25;margin-bottom:26px;display:flex;align-items:center;gap:18px;}
+.reveal h3{font-size:28px;font-weight:700;margin:0 0 10px;}
+.reveal p{margin:0 0 14px;line-height:1.6;}
+.reveal ul{margin:0;padding-left:1.1em;}
+.reveal li{margin:0 0 10px;line-height:1.55;}
+.reveal li::marker{color:var(--shu);}
+.reveal strong{color:var(--shu);font-weight:700;}
+.reveal em{font-style:normal;color:var(--ai);font-weight:700;}
+.reveal code{font-family:inherit;background:var(--ai-soft);color:var(--ai);padding:1px 8px;border-radius:6px;font-size:.88em;}
+
+/* 左側矢絣帶 + 底部青海波帶（一般頁） */
+.reveal .slides section.std::before{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:var(--yagasuri);background-size:24px 32px;}
+.reveal .slides section.std::after{content:"";position:absolute;left:22px;right:0;bottom:0;height:16px;background:var(--seigaiha);background-size:40px 20px;opacity:.9;}
+
+/* 標題左側的印章 */
+.hanko{flex:none;display:inline-grid;place-items:center;width:52px;height:52px;border:3px solid var(--shu);border-radius:8px;color:var(--shu);
+  font-family:"Shippori Mincho",serif;font-size:26px;font-weight:800;transform:rotate(-6deg);background:rgba(184,50,60,.06);}
+
+/* 出處 */
+.src{position:absolute;left:92px;right:72px;bottom:26px;font-size:15px;color:var(--muted);line-height:1.4;}
+.src b{color:var(--ai);font-weight:700;}
+.src .k{font-family:ui-monospace,Consolas,monospace;font-size:14px;color:var(--ai);}
+
+/* 卡片 */
+.grid{display:grid;gap:20px;}
+.g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+.card{background:#FBF5E8;border:2.5px solid var(--ink);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 rgba(43,32,36,.14);}
+.card.ai{border-top:10px solid var(--ai);} .card.shu{border-top:10px solid var(--shu);} .card.kin{border-top:10px solid var(--kin);}
+.card h3{font-size:24px;}
+.card p,.card li{font-size:21px;}
+.tag{display:inline-block;font-size:15px;padding:2px 10px;border-radius:999px;border:1.5px solid currentColor;margin-right:6px;font-weight:700;}
+.tag.ai{color:var(--ai);} .tag.shu{color:var(--shu);} .tag.kin{color:#8C6418;}
+
+.big{font-family:"Shippori Mincho",serif;font-weight:800;font-size:64px;line-height:1;color:var(--shu);}
+.big small{font-size:24px;color:var(--ink);font-weight:700;margin-left:4px;}
+.label{font-size:18px;color:var(--muted);margin-top:6px;}
+
+.chibi{position:absolute;pointer-events:none;}
+.note{background:var(--ai-soft);border-left:6px solid var(--ai);border-radius:8px;padding:12px 18px;font-size:20px;line-height:1.55;}
+.note.obs::before{content:"💭 觀察（推論，非論文結論）";display:block;font-weight:700;color:var(--ai);font-size:16px;margin-bottom:4px;}
+
+/* 表格 */
+.reveal table{border-collapse:collapse;width:100%;font-size:19px;margin:0;}
+.reveal table th{background:var(--ai);color:var(--washi);font-weight:700;padding:9px 12px;border:none;text-align:left;}
+.reveal table td{padding:9px 12px;border-bottom:1.5px solid var(--washi-2);vertical-align:top;line-height:1.45;}
+.reveal table tr:nth-child(even) td{background:rgba(255,255,255,.35);}
+
+/* 長條 */
+.bar{display:flex;align-items:center;gap:12px;margin:8px 0;font-size:20px;}
+.bar .nm{width:150px;flex:none;}
+.bar .tr{flex:1;height:26px;background:var(--washi-2);border-radius:6px;overflow:hidden;}
+.bar .fl{height:100%;background:var(--ai);border-radius:6px;}
+.bar .fl.hi{background:var(--shu);}
+.bar .v{width:64px;text-align:right;font-weight:700;}
+
+/* 封面 / 章節頁 */
+section.cover{background:var(--ai);}
+.reveal .slides section.cover{padding:0 !important;}
+.cover-in{position:absolute;inset:26px;border:3px solid var(--kin);border-radius:6px;background:var(--washi);overflow:hidden;}
+.cover-wave{z-index:1;position:absolute;left:0;right:0;bottom:0;height:120px;background:var(--seigaiha);background-size:56px 28px;}
+.cover-title{position:absolute;left:84px;top:110px;width:720px;}
+.cover-title .kicker{font-size:22px;color:var(--shu);font-weight:700;letter-spacing:.3em;margin-bottom:14px;}
+.cover-title h1{font-size:70px;font-weight:800;line-height:1.2;}
+.cover-title h1 .x{color:var(--shu);}
+.cover-title .sub{font-size:26px;margin-top:22px;color:var(--ai);font-weight:700;}
+.cover-title .meta{font-size:19px;margin-top:30px;color:var(--muted);}
+.stamp-v{position:absolute;right:420px;top:96px;writing-mode:vertical-rl;font-family:"Shippori Mincho",serif;font-weight:800;font-size:26px;color:var(--washi);background:var(--shu);padding:16px 8px;border-radius:4px;letter-spacing:.2em;}
+
+section.chap{background:var(--washi);}
+.chap-num{font-family:"Shippori Mincho",serif;font-size:180px;font-weight:800;color:var(--shu);line-height:1;opacity:.95;}
+.chap-t{font-family:"Shippori Mincho",serif;font-size:58px;font-weight:800;margin-top:10px;}
+.chap-s{font-size:24px;color:var(--muted);margin-top:14px;}
+
+/* 架構圖 */
+.layer{border:2.5px solid var(--ink);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:16px;background:#FBF5E8;}
+.layer img{width:74px;height:74px;flex:none;}
+.layer .t{font-weight:700;font-size:23px;} .layer .d{font-size:19px;color:var(--muted);}
+.arrow-d{text-align:center;color:var(--shu);font-size:28px;line-height:1;margin:6px 0;font-weight:700;}
+
+.refs .grid{gap:0 34px;font-size:15.5px;line-height:1.4;}
+.refs p{margin:0 0 7px;line-height:1.4;}
+.refs .rh{font-weight:700;color:var(--shu);margin:8px 0 6px;font-size:18px;}
+.refs .rk{font-family:Consolas,ui-monospace,monospace;color:var(--ai);font-weight:700;margin-right:4px;}
+.refs i{color:var(--muted);font-style:normal;}
+.reveal .progress{color:var(--shu);height:5px;}
+.reveal .controls{color:var(--shu);}
+.reveal .slide-number{background:transparent;color:var(--muted);font-family:"Shippori Mincho",serif;font-size:16px;right:96px;bottom:22px;}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!-- 1 封面 -->
+<section class="cover">
+  <div class="cover-in">
+    <div class="cover-title">
+      <div class="kicker">文獻導讀・其之一</div>
+      <h1>LLM <span class="x">＋</span> RL<br>× 無人機</h1>
+      <div class="sub">語言模型怎麼跟強化學習分工？13 篇論文的整理</div>
+      <div class="meta">2026-11-15　｜　資料來源：個人論文 wiki（core 3 篇・adjacent 10 篇）</div>
+    </div>
+    <div class="stamp-v">研究室報告</div>
+    <img class="chibi" src="../assets/chibi-taisho/drone-chan.svg" style="right:90px;top:120px;width:330px" alt="">
+    <img class="chibi" src="../assets/chibi-taisho/llm-bot.svg" style="right:350px;top:330px;width:140px;z-index:2" alt="">
+    <img class="chibi" src="../assets/chibi-taisho/reward-star.svg" style="right:50px;top:350px;width:140px;z-index:2" alt="">
+    <div class="cover-wave"></div>
+  </div>
+</section>
+
+<!-- 2 目錄 -->
+<section class="std">
+  <h2><span class="hanko">目</span>今日的內容</h2>
+  <div class="grid g4" style="margin-top:20px">
+    <div class="card shu"><div class="big">壱</div><h3 style="margin-top:12px">為什麼要結合</h3><p>LLM 和 RL 各缺什麼、收錄範圍</p></div>
+    <div class="card ai"><div class="big" style="color:var(--ai)">弐</div><h3 style="margin-top:12px">怎麼結合</h3><p>階層架構與四種耦合模式</p></div>
+    <div class="card kin"><div class="big" style="color:#A87A1E">参</div><h3 style="margin-top:12px">代表論文</h3><p>3 篇 core + 「LLM 當老師」</p></div>
+    <div class="card shu"><div class="big">肆</div><h3 style="margin-top:12px">缺口與爭議</h3><p>還沒人做的事、文獻間的矛盾</p></div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/researcher.svg" style="right:80px;bottom:60px;width:200px" alt="">
+</section>
+
+<!-- 3 章節一 -->
+<section class="chap std">
+  <div style="margin-top:130px">
+    <div class="chap-num">壱</div>
+    <div class="chap-t">為什麼要結合 LLM 與 RL</div>
+    <div class="chap-s">兩者剛好互補，但直接接在一起有代價</div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/drone-chan-thinking.svg" style="right:110px;top:170px;width:330px" alt="">
+</section>
+
+<!-- 4 互補 -->
+<section class="std">
+  <h2><span class="hanko">補</span>各自擅長、各自缺什麼</h2>
+  <div class="grid g2">
+    <div class="card ai" style="position:relative;padding-right:150px">
+      <img class="chibi" src="../assets/chibi-taisho/llm-bot.svg" style="right:14px;top:14px;width:120px" alt="">
+      <h3>LLM</h3>
+      <p><span class="tag ai">擅長</span>全局語意、任務分解、自然語言溝通</p>
+      <p><span class="tag shu">缺點</span>延遲高、會<strong>幻覺</strong>、不會從互動中學</p>
+      <p style="font-size:18px;color:var(--muted)">例：Qwen2.5-7B 未微調時會輸出 "go to target point #8, #8" 這類非法指令</p>
+    </div>
+    <div class="card kin" style="position:relative;padding-right:150px">
+      <img class="chibi" src="../assets/chibi-taisho/reward-star.svg" style="right:14px;top:14px;width:120px" alt="">
+      <h3>RL / MARL</h3>
+      <p><span class="tag ai">擅長</span>即時連續控制、從互動中學習</p>
+      <p><span class="tag shu">缺點</span>只看局部觀測、溝通是黑箱、泛化差、收斂慢</p>
+      <p style="font-size:18px;color:var(--muted)">例：MATD3 缺乏全局態勢感知；純 MARL 隊伍變大時表現退化</p>
+    </div>
+  </div>
+  <div class="note" style="margin-top:24px">三篇 core 論文的出發點都一樣：<b>讓 LLM 補 RL 的全局語意，讓 RL 補 LLM 的即時性與可靠度。</b></div>
+  <div class="src">出處：<span class="k">wang2025rally</span>（RALLY）・<span class="k">dong2026hierarchical</span>（LLM-MATD3）・<span class="k">ahn2026hallucination</span>（SafeGPT）</div>
+</section>
+
+<!-- 5 收錄範圍 -->
+<section class="std">
+  <h2><span class="hanko">範</span>收錄範圍：13 篇</h2>
+  <div class="grid" style="grid-template-columns:1.05fr 1fr;align-items:start">
+    <div>
+      <div style="display:flex;gap:30px;margin-bottom:18px">
+        <div><div class="big">3<small>篇</small></div><div class="label">core：LLM + RL + UAV 都有</div></div>
+        <div><div class="big" style="color:var(--ai)">10<small>篇</small></div><div class="label">adjacent：缺其中一項</div></div>
+      </div>
+      <h3 style="font-size:22px">adjacent 缺什麼</h3>
+      <div class="bar"><span class="nm">沒有 LLM</span><span class="tr"><span class="fl" style="width:30%;display:block"></span></span><span class="v">3</span></div>
+      <div class="bar"><span class="nm">沒有 UAV</span><span class="tr"><span class="fl" style="width:30%;display:block"></span></span><span class="v">3</span></div>
+      <div class="bar"><span class="nm">沒有 RL</span><span class="tr"><span class="fl" style="width:20%;display:block"></span></span><span class="v">2</span></div>
+      <div class="bar"><span class="nm">古典方法</span><span class="tr"><span class="fl" style="width:20%;display:block"></span></span><span class="v">2</span></div>
+      <p style="font-size:17px;color:var(--muted);margin-top:8px">「沒有 UAV」含 1 篇綜述；「古典方法」= 既無 LLM 也無 RL 的 baseline 論文</p>
+    </div>
+    <div class="card" style="font-size:20px">
+      <h3>分類原則</h3>
+      <ul>
+        <li><strong>core</strong> 才算 LLM+RL+UAV 的證據</li>
+        <li><strong>adjacent</strong> 用來借鏡方法或場景，不拿來佐證這個領域的結論</li>
+        <li>每篇再標 LLM 的角色（planner、communicator、teacher…）和 RL 的角色（底層控制、安全把關、角色分派…）</li>
+      </ul>
+    </div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/paper-kun.svg" style="right:70px;bottom:50px;width:150px" alt="">
+  <div class="src">出處：wiki <b>paper-comparison</b>、<b>overview</b>（2026-11-15）</div>
+</section>
+
+<!-- 6 章節二 -->
+<section class="chap std">
+  <div style="margin-top:130px">
+    <div class="chap-num" style="color:var(--ai)">弐</div>
+    <div class="chap-t">LLM 和 RL 怎麼接在一起</div>
+    <div class="chap-s">主流骨架一致，接法差很多</div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/llm-bot.svg" style="right:300px;top:200px;width:200px" alt="">
+  <img class="chibi" src="../assets/chibi-taisho/reward-star.svg" style="right:90px;top:260px;width:200px" alt="">
+</section>
+
+<!-- 7 階層架構 -->
+<section class="std">
+  <h2><span class="hanko">層</span>主流：LLM 在上、RL 在下</h2>
+  <div class="grid" style="grid-template-columns:1.1fr 1fr;align-items:center">
+    <div>
+      <div class="layer" style="border-top:8px solid var(--ai)"><img src="../assets/chibi-taisho/llm-bot.svg" alt=""><div><div class="t">高層：LLM</div><div class="d">讀全局情勢 → 分區、分派任務、協商目標</div></div></div>
+      <div class="arrow-d">▼ 任務標籤／路線／共識目標</div>
+      <div class="layer" style="border-top:8px solid var(--kin)"><img src="../assets/chibi-taisho/reward-star.svg" alt=""><div><div class="t">低層：RL</div><div class="d">即時控制、選角色，或檢查 LLM 的方案</div></div></div>
+      <div class="arrow-d">▼ 動作</div>
+      <div class="layer" style="border-top:8px solid var(--shu)"><img src="../assets/chibi-taisho/drone-chan.svg" alt=""><div><div class="t">無人機群</div><div class="d">模擬環境（最多到 SITL）</div></div></div>
+    </div>
+    <div>
+      <ul style="font-size:22px">
+        <li><strong>3 篇 core 全部</strong>是這種架構</li>
+        <li>同樣的骨架也出現在非 RL 系統：下層換成古典規劃（Co-NavGPT）或分散式控制（UAVgent）</li>
+        <li>差異在<em>中間那支箭頭</em>：LLM 的輸出用什麼形式進入 RL，RL 又是否回頭修正 LLM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="src">出處：<span class="k">dong2026hierarchical</span>・<span class="k">ahn2026hallucination</span>・<span class="k">wang2025rally</span>；非 RL 對照（adjacent）：<span class="k">yu2025conavgpt</span>・<span class="k">zhang2026uavgent</span></div>
+</section>
+
+<!-- 8 四種模式 -->
+<section class="std">
+  <h2><span class="hanko">型</span>四種耦合模式</h2>
+  <table>
+    <tr><th style="width:24%">模式</th><th style="width:12%">方向</th><th style="width:22%">論文</th><th style="width:16%">LLM 何時運作</th><th>介面</th></tr>
+    <tr><td><b>① 條件注入</b></td><td>LLM → RL</td><td>LLM-MATD3</td><td>執行時（每 300 步）</td><td>任務標籤 → embedding 接進 actor 和 critic</td></tr>
+    <tr><td><b>② 安全把關</b></td><td>RL → LLM</td><td>SafeGPT</td><td>執行時（每次規劃）</td><td>完整路線 → CMDP 決定接受或重規劃</td></tr>
+    <tr><td><b>③ 先驗混合</b></td><td>雙向</td><td>RALLY</td><td>執行時（每台 UAV）</td><td>自然語言共識 + RMIX 角色價值</td></tr>
+    <tr><td><b>④ 老師示範</b></td><td>LLM → RL</td><td>LAMARL、lou<br><span class="tag kin">皆非 UAV</span></td><td><strong>只在訓練時</strong></td><td>LLM 寫的先驗策略／專家動作 → 模仿項；LLM 寫 reward</td></tr>
+  </table>
+  <div class="note obs" style="margin-top:18px">①②③ 執行時都要呼叫 LLM，所以都得處理延遲和幻覺；④ 從根本上避開這個問題。</div>
+  <div class="src">出處：wiki <b>llm-rl-coupling-patterns</b>；<span class="k">dong2026hierarchical</span>・<span class="k">ahn2026hallucination</span>・<span class="k">wang2025rally</span>・<span class="k">zhu2025lamarl</span>・<span class="k">lou2026llm</span></div>
+</section>
+
+<!-- 9 章節三 -->
+<section class="chap std">
+  <div style="margin-top:130px">
+    <div class="chap-num" style="color:#A87A1E">参</div>
+    <div class="chap-t">代表論文</div>
+    <div class="chap-s">三篇 core 各代表一種模式，再加上「LLM 當老師」</div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/paper-kun.svg" style="right:120px;top:170px;width:280px" alt="">
+</section>
+
+<!-- 10 LLM-MATD3 -->
+<section class="std">
+  <h2><span class="hanko">①</span>LLM-MATD3：LLM 分派任務、MATD3 執行</h2>
+  <div class="grid" style="grid-template-columns:1.15fr 1fr">
+    <div>
+      <p><span class="tag ai">任務</span>5 vs 5 多無人機對抗（2D、固定高度）</p>
+      <ul style="font-size:21px">
+        <li>LLM 每 300 步分派任務：<em>追擊／區域防守／支援</em>，並選隊形</li>
+        <li>任務標籤轉成 embedding，同時接進 actor 和 critic；每種任務有專屬 reward</li>
+        <li>LLM：DeepSeek-R1 14B，用約 3000 筆模擬樣本 LoRA 微調、本機執行</li>
+        <li>最佳任務比例 55 : 35 : 10（交換比 2.59）</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>勝率</h3>
+      <div class="bar"><span class="nm">LLM-MATD3</span><span class="tr"><span class="fl hi" style="width:82%;display:block"></span></span><span class="v">82%</span></div>
+      <div class="bar"><span class="nm">MATD3</span><span class="tr"><span class="fl" style="width:69%;display:block"></span></span><span class="v">69%</span></div>
+      <div class="bar"><span class="nm">MADDPG</span><span class="tr"><span class="fl" style="width:55%;display:block"></span></span><span class="v">55%</span></div>
+      <div class="bar"><span class="nm">MAPPO</span><span class="tr"><span class="fl" style="width:42%;display:block"></span></span><span class="v">42%</span></div>
+      <p style="font-size:17px;color:var(--muted);margin:10px 0 0">對手是專家規則系統，不會學習</p>
+    </div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/drone-chan.svg" style="right:110px;bottom:58px;width:170px" alt="">
+  <div class="src">出處：<span class="k">dong2026hierarchical</span>（2026）</div>
+</section>
+
+<!-- 11 SafeGPT -->
+<section class="std">
+  <h2><span class="hanko">②</span>SafeGPT：用 Safe-RL 擋住 LLM 的幻覺</h2>
+  <div class="grid" style="grid-template-columns:1.15fr 1fr">
+    <div>
+      <p><span class="tag ai">任務</span>10 台無人機巡訪 500～2000 個航點（3D 區域）</p>
+      <ul style="font-size:21px">
+        <li><em>GPT-4o</em> 把航點分區 → 每台機上的 <em>GPT-4o-mini</em> 排順序</li>
+        <li>Safe-RL（CMDP + Lagrangian actor-critic）檢查每條路線的電量、通訊、重複造訪，違規就退回重規劃</li>
+        <li>最佳權重下，SNR 與電量違規率都只有 0.3%</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>N = 2000 的累積能耗（× 10⁷ kJ）</h3>
+      <div class="bar"><span class="nm">SafeGPT</span><span class="tr"><span class="fl hi" style="width:20%;display:block"></span></span><span class="v">2.24</span></div>
+      <div class="bar"><span class="nm">GPT-Only</span><span class="tr"><span class="fl" style="width:31.6%;display:block"></span></span><span class="v">3.54</span></div>
+      <div class="bar"><span class="nm">DQN</span><span class="tr"><span class="fl" style="width:83.8%;display:block"></span></span><span class="v">9.39</span></div>
+      <div class="bar"><span class="nm">Actor-Critic</span><span class="tr"><span class="fl" style="width:100%;display:block"></span></span><span class="v">11.2</span></div>
+      <p style="font-size:17px;color:var(--muted);margin:10px 0 0">越短越好。只用 LLM 多耗 58%</p>
+    </div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/reward-star.svg" style="right:110px;bottom:58px;width:150px" alt="">
+  <div class="src">出處：<span class="k">ahn2026hallucination</span>（2026）</div>
+</section>
+
+<!-- 12 RALLY -->
+<section class="std">
+  <h2><span class="hanko">③</span>RALLY：LLM 語意協商 + MARL 選角色</h2>
+  <div class="grid g2">
+    <div>
+      <p><span class="tag ai">任務</span>集群躲避追擊者，同時用隊形覆蓋目標區</p>
+      <ul style="font-size:21px">
+        <li>每台無人機用 LLM 以<em>結構化自然語言</em>和鄰居協商共識目標</li>
+        <li>RMIX（值分解）結合 LLM 先驗與線上經驗，動態切換 Commander／Coordinator／Executor</li>
+        <li>GPT-4o 收集資料 → LoRA 微調 Qwen2.5；<strong>1.5B</strong> 在效果和延遲之間最平衡</li>
+      </ul>
+    </div>
+    <div class="grid" style="gap:14px">
+      <div class="card ai"><h3>泛化</h3><p>集群 8 → 11 台時，純 MARL 的 CI-HRL 退化，RALLY 維持表現</p></div>
+      <div class="card kin"><h3>消融</h3><p>三角色 &gt; 雙角色 &gt; 無角色；未微調的 LLM 會輸出非法指令</p></div>
+      <p style="font-size:17px;color:var(--muted);margin:0">論文以圖呈現結果，正文沒有具體百分比（待確認）。有 SITL 驗證</p>
+    </div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/llm-bot.svg" style="right:110px;bottom:58px;width:150px" alt="">
+  <div class="src">出處：<span class="k">wang2025rally</span>（IEEE OJVT 2025）</div>
+</section>
+
+<!-- 13 模式④ -->
+<section class="std">
+  <h2><span class="hanko">④</span>LLM 只在訓練時當老師</h2>
+  <div class="grid g2">
+    <div class="card kin">
+      <h3>LAMARL <span class="tag kin">adjacent・地面機器人</span></h3>
+      <ul>
+        <li>LLM（o1-preview）寫<em>先驗策略函數</em>和 <em>reward 函數</em>，交給 MADDPG 訓練</li>
+        <li>先驗策略讓樣本效率平均 <strong>+185.9%</strong></li>
+        <li>CoT + 基本 API 讓函數產生成功率 1% → 68.5%</li>
+        <li>8 台全向輪機器人實機驗證</li>
+      </ul>
+    </div>
+    <div class="card kin">
+      <h3>lou 2026 <span class="tag kin">adjacent・電力交易</span></h3>
+      <ul>
+        <li>LLM 工作流寫程式、呼叫求解器，產生專家策略</li>
+        <li>MARL 用 Wasserstein 距離模仿專家</li>
+        <li>LLM 開銷集中在訓練；執行時只用輕量網路</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note obs" style="margin-top:20px">兩個不同領域都證明可行，執行時<b>零 LLM 延遲</b>。無人機機上算力有限，最需要這種做法，但目前收錄的無人機論文還沒有人用。</div>
+  <div class="src">出處：<span class="k">zhu2025lamarl</span>（IEEE RA-L 2025）・<span class="k">lou2026llm</span>（2026）——皆為 adjacent，不作為 UAV 證據</div>
+</section>
+
+<!-- 14 馴服 LLM -->
+<section class="std">
+  <h2><span class="hanko">馴</span>「LLM 不能直接上線」已是共識</h2>
+  <p>每篇論文都在處理 LLM 的<strong>延遲</strong>和<strong>幻覺</strong>，解法各不相同：</p>
+  <div class="grid g4" style="margin-top:10px">
+    <div class="card ai"><h3>降低頻率</h3><p>每 300 步才問一次 LLM</p><p style="font-size:16px;color:var(--muted)">dong2026hierarchical</p></div>
+    <div class="card shu"><h3>RL 把關</h3><p>Safe-RL 拒絕違規路線</p><p style="font-size:16px;color:var(--muted)">ahn2026hallucination</p></div>
+    <div class="card kin"><h3>蒸餾小模型</h3><p>GPT-4o → Qwen2.5-1.5B（LoRA）</p><p style="font-size:16px;color:var(--muted)">wang2025rally</p></div>
+    <div class="card"><h3>只在訓練用</h3><p>執行時完全不呼叫 LLM</p><p style="font-size:16px;color:var(--muted)">zhu2025lamarl・lou2026llm（adjacent）</p></div>
+  </div>
+  <div class="note obs" style="margin-top:22px">3 篇 core 裡有 2 篇選擇 LoRA 微調開源小模型（DeepSeek-R1 14B、Qwen2.5），這可能是正在成形的部署共識。</div>
+  <div class="src">出處：wiki <b>llm-hallucination</b>、<b>llm-distillation-lora</b></div>
+</section>
+
+<!-- 15 現象 -->
+<section class="std">
+  <h2><span class="hanko">象</span>一眼看出的現象</h2>
+  <div class="grid g3">
+    <div class="card shu"><div class="big">3/3</div><h3 style="margin-top:10px">全是多機</h3><p>單機的 LLM+RL 控制還沒有收錄到</p></div>
+    <div class="card ai"><div class="big" style="color:var(--ai)">0</div><h3 style="margin-top:10px">無人機實機</h3><p>core 全在模擬，最多到 SITL；無人機實機只有古典方法 RACER</p></div>
+    <div class="card kin"><div class="big" style="color:#A87A1E">2/3</div><h3 style="margin-top:10px">對抗／追逃</h3><p>浙大團隊（CI-HRL → RALLY）在這個任務有連續脈絡</p></div>
+  </div>
+  <ul style="margin-top:22px;font-size:21px">
+    <li>都是<em>固定高度的 2D</em> 設定（SafeGPT 的區域是 3D，但沒有建模飛行動力學）</li>
+    <li>對手都<em>不會邊訓練邊學</em>：規則系統，或先訓練好就固定的 PPO 追捕者</li>
+  </ul>
+  <div class="src">出處：wiki <b>paper-comparison</b>；<span class="k">zhou2023racer</span>・<span class="k">xiang2025decentralized</span>・<span class="k">dong2026hierarchical</span></div>
+</section>
+
+<!-- 16 章節四 -->
+<section class="chap std">
+  <div style="margin-top:130px">
+    <div class="chap-num">肆</div>
+    <div class="chap-t">研究缺口與爭議</div>
+    <div class="chap-s">以下缺口是根據 13 篇論文的推論，還需要專門搜尋確認</div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/drone-chan-thinking.svg" style="right:110px;top:170px;width:330px" alt="">
+</section>
+
+<!-- 17 缺口 -->
+<section class="std">
+  <h2><span class="hanko">隙</span>研究缺口（候選題目）</h2>
+  <div class="grid g2" style="gap:16px">
+    <div class="card shu"><h3>1. 無人機上的「LLM 當老師」</h3><p>LLM 離線產生航線、分派方案或先驗策略程式碼，MARL 模仿，執行時零延遲。LAMARL 的框架可以直接搬到集群隊形任務</p></div>
+    <div class="card ai"><h3>2. RL 微調 LLM 本身</h3><p>用 RLHF / GRPO 讓 LLM 直接做無人機決策——收錄的論文裡完全沒有</p></div>
+    <div class="card kin"><h3>3. ① + ② 合併</h3><p>LLM 指導 RL 的同時，再用 Safe-RL 檢查 LLM 的指令</p></div>
+    <div class="card"><h3>4. RL 決定何時呼叫 LLM</h3><p>呼叫頻率由學習決定，而不是固定每 300 步或每 25 步</p></div>
+  </div>
+  <p style="font-size:18px;color:var(--muted);margin-top:14px">另外：缺少和古典規劃 baseline 的比較；沒有自我對弈的對手；3D 動力學和實機延遲都沒驗證</p>
+  <div class="src">💭 根據 wiki <b>llm-rl-coupling-patterns</b>、<b>overview</b> 的推論，非論文結論；參考 <span class="k">zhu2025lamarl</span>・<span class="k">lou2026llm</span>・<span class="k">yu2025conavgpt</span></div>
+</section>
+
+<!-- 18 爭議 -->
+<section class="std">
+  <h2><span class="hanko">議</span>文獻之間的矛盾</h2>
+  <div class="grid g2">
+    <div class="card ai">
+      <h3>CI-HRL 的泛化能力</h3>
+      <p><span class="tag shu">RALLY 說</span>集群 8 → 11 台時，CI-HRL 明顯退化（習慣性分群）</p>
+      <p><span class="tag ai">CI-HRL 說</span>擴展到 15 台時，導航和躲避表現大致穩定</p>
+      <p style="font-size:18px;color:var(--muted)">兩篇的指標不同，不算直接矛盾；引用 RALLY 的泛化優勢時要小心</p>
+    </div>
+    <div class="card kin">
+      <h3>MAPPO 好不好用</h3>
+      <p><span class="tag shu">dong 說</span>MAPPO 勝率 42%，在四個方法裡最差</p>
+      <p><span class="tag ai">CI-HRL 說</span>MAPPO 穩定、計算效率高，仍是實際系統的主流選擇</p>
+      <p style="font-size:18px;color:var(--muted)">任務不同，不一定衝突：MAPPO 單獨用在複雜多任務上收斂差，加上階層或交替訓練後可用</p>
+    </div>
+  </div>
+  <img class="chibi" src="../assets/chibi-taisho/researcher.svg" style="right:80px;bottom:50px;width:150px" alt="">
+  <div class="src">出處：<span class="k">wang2025rally</span>・<span class="k">xiang2025decentralized</span>・<span class="k">dong2026hierarchical</span>；wiki <b>cooperative-navigation</b>、<b>ppo</b> 的「爭議與矛盾」段</div>
+</section>
+
+<!-- 19 結語 -->
+<section class="std">
+  <h2><span class="hanko">結</span>重點整理與下一步</h2>
+  <div class="grid" style="grid-template-columns:1.3fr 1fr;align-items:start">
+    <div>
+      <ul style="font-size:22px">
+        <li>主流是<strong>LLM 在上、RL 在下</strong>；差別在兩者怎麼接（四種模式）</li>
+        <li>各篇都在處理 LLM 的延遲與幻覺：降頻、RL 把關、蒸餾、只在訓練時用</li>
+        <li>領域還很早期：core 只有 3 篇，全是多機、全在模擬</li>
+        <li>最清楚的缺口：<em>無人機上的「LLM 當老師」</em>、<em>RL 微調 LLM</em></li>
+      </ul>
+      <h3 style="margin-top:20px;font-size:24px">下一步</h3>
+      <ul style="font-size:20px">
+        <li>針對兩個缺口各做一次專門搜尋，確認「真的沒人做過」</li>
+        <li>候選文獻：LGPF（IROS 2024，語言 → 隊形 → MARL）、FlockGPT、LLM2Swarm</li>
+      </ul>
+    </div>
+    <div style="position:relative;height:430px">
+      <img class="chibi" src="../assets/chibi-taisho/drone-chan-happy.svg" style="left:20px;top:0;width:320px" alt="">
+    </div>
+  </div>
+  <div class="src">出處：wiki <b>overview</b>（2026-11-15）</div>
+</section>
+
+<!-- 20 參考文獻 -->
+<section class="std refs">
+  <h2><span class="hanko">献</span>參考文獻</h2>
+  <div class="grid g2">
+    <div>
+      <p class="rh">Core</p>
+      <p><span class="rk">ahn2026hallucination</span> Hallucination-Aware Hierarchical LLM for Autonomous UAV Mobility Control: A Safe Reinforcement Learning Approach. <i>IEEE Trans. Networking, 2026</i></p>
+      <p><span class="rk">dong2026hierarchical</span> Hierarchical decision-making for UAVs' game via LLM enhanced multi-agent reinforcement learning. <i>Aerospace Sci. Technol., 2026</i></p>
+      <p><span class="rk">wang2025rally</span> RALLY: Role-Adaptive LLM-Driven Yoked Navigation for Agentic UAV Swarms. <i>IEEE OJVT, 2025</i></p>
+      <p class="rh">Adjacent（方法借鏡）</p>
+      <p><span class="rk">zhu2025lamarl</span> LAMARL: LLM-Aided Multi-Agent Reinforcement Learning for Cooperative Policy Generation. <i>IEEE RA-L, 2025</i></p>
+      <p><span class="rk">lou2026llm</span> LLM-Enhanced Multi-Agent Reinforcement Learning With Expert Workflow for Real-Time P2P Energy Trading. <i>IEEE Trans. Smart Grid, 2026</i></p>
+      <p><span class="rk">cao2025survey</span> Survey on Large Language Model-Enhanced Reinforcement Learning: Concept, Taxonomy, and Methods. <i>IEEE TNNLS, 2025</i></p>
+    </div>
+    <div>
+      <p class="rh">Adjacent（續）</p>
+      <p><span class="rk">xiang2025decentralized</span> Decentralized Consensus Inference-based Hierarchical RL for Multi-Constrained UAV Pursuit-Evasion Game. <i>IEEE TNNLS, 2025</i></p>
+      <p><span class="rk">yu2025conavgpt</span> Co-NavGPT: Multi-Robot Cooperative Visual Semantic Navigation Using Vision Language Models. <i>arXiv:2310.07937</i></p>
+      <p><span class="rk">zhang2026uavgent</span> UAVGENT: A Language-Guided Distributed Control Framework. <i>arXiv:2602.13212</i></p>
+      <p><span class="rk">hiep2026dynamic</span> Dynamic Multi-Layer Aerial System for Latent Diffusion-Based Generative AI Inference at the Edge. <i>IEEE Trans. Commun., 2026</i></p>
+      <p><span class="rk">song2024local</span> A Local-and-Global Attention RL Algorithm for Multiagent Cooperative Navigation. <i>IEEE TNNLS, 2024</i></p>
+      <p><span class="rk">yanmaz2024dynamic</span> Dynamic Multi-UAV Path Planning for Multi-Target Search and Connectivity. <i>IEEE TVT, 2024</i></p>
+      <p><span class="rk">zhou2023racer</span> RACER: Rapid Collaborative Exploration With a Decentralized Multi-UAV System. <i>IEEE T-RO, 2023</i></p>
+    </div>
+  </div>
+  <div class="src">各篇摘要見 wiki/papers/&lt;key&gt;.md</div>
+</section>
+
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  width:1280, height:720, margin:0.04, center:false, hash:true,
+  slideNumber:'c/t', transition:'fade', backgroundTransition:'none'
+});
+</script>
+</body>
+</html>

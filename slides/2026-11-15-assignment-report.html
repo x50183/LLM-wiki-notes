@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Wiki 作業說明</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2B2024; --ai:#2E3A6B; --ai-soft:#DCE0EE; --shu:#B8323C; --shu-soft:#F3D9D6;
+  --kin:#D9A441; --kin-soft:#F6E6C2; --washi:#F4EAD5; --washi-2:#EADCBF; --card:#FBF5E8; --muted:#6B5B57;
+  --seigaiha:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cg fill='%232E3A6B' stroke='%23F4EAD5' stroke-width='1.4'%3E%3Cg transform='translate(20 10)'%3E%3Ccircle r='19'/%3E%3Ccircle r='13' fill='none'/%3E%3Ccircle r='7' fill='none'/%3E%3C/g%3E%3Cg transform='translate(0 20)'%3E%3Ccircle r='19'/%3E%3Ccircle r='13' fill='none'/%3E%3Ccircle r='7' fill='none'/%3E%3C/g%3E%3Cg transform='translate(40 20)'%3E%3Ccircle r='19'/%3E%3Ccircle r='13' fill='none'/%3E%3Ccircle r='7' fill='none'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --yagasuri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='32'%3E%3Crect width='24' height='32' fill='%23B8323C'/%3E%3Cpath d='M0 0 L12 8 L12 24 L0 16Z' fill='%23F4EAD5'/%3E%3Cpath d='M12 8 L24 0 L24 16 L12 24Z' fill='%238E2630'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--washi);color:var(--ink);font-family:"Zen Maru Gothic",sans-serif;font-size:17px;line-height:1.75;
+  background-image:radial-gradient(circle at 20% 30%, rgba(160,130,90,.07) 0 2px, transparent 3px),radial-gradient(circle at 70% 80%, rgba(160,130,90,.06) 0 1.5px, transparent 2.5px);
+  background-size:37px 41px,53px 47px;}
+body::before{content:"";position:fixed;left:0;top:0;bottom:0;width:14px;background:var(--yagasuri);background-size:24px 32px;z-index:5;}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px 0 40px;}
+header{position:relative;padding:56px 0 40px;}
+header .kicker{color:var(--shu);font-weight:700;letter-spacing:.25em;font-size:15px;}
+header h1{font-family:"Shippori Mincho",serif;font-weight:800;font-size:44px;line-height:1.25;margin:10px 0 12px;}
+header h1 .x{color:var(--shu);}
+header p{margin:0;color:var(--muted);max-width:640px;}
+header img{position:absolute;right:0;top:34px;width:190px;}
+.wave{height:22px;background:var(--seigaiha);background-size:40px 20px;margin:0 0 8px;}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;}
+nav a{font-size:14px;text-decoration:none;color:var(--ai);border:1.5px solid var(--ai);border-radius:999px;padding:3px 12px;background:var(--card);}
+nav a:hover{background:var(--ai);color:var(--washi);}
+section{margin:46px 0;}
+h2{font-family:"Shippori Mincho",serif;font-weight:800;font-size:30px;line-height:1.3;margin:0 0 18px;display:flex;align-items:center;gap:14px;}
+.hanko{flex:none;display:inline-grid;place-items:center;width:44px;height:44px;border:3px solid var(--shu);border-radius:7px;color:var(--shu);font-size:21px;transform:rotate(-6deg);background:rgba(184,50,60,.06);}
+h3{font-family:"Shippori Mincho",serif;font-size:21px;margin:0 0 8px;}
+p{margin:0 0 12px;}
+strong{color:var(--shu);}
+em{font-style:normal;color:var(--ai);font-weight:700;}
+code{font-family:Consolas,ui-monospace,monospace;font-size:.88em;background:var(--ai-soft);color:var(--ai);padding:1px 6px;border-radius:5px;}
+a{color:var(--ai);}
+.grid{display:grid;gap:16px;}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr));} .g3{grid-template-columns:repeat(3,minmax(0,1fr));} .g4{grid-template-columns:repeat(4,minmax(0,1fr));}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:16px 20px;box-shadow:4px 4px 0 rgba(43,32,36,.13);}
+.card.ai{border-top:8px solid var(--ai);} .card.shu{border-top:8px solid var(--shu);} .card.kin{border-top:8px solid var(--kin);}
+.card p:last-child,.card ul:last-child{margin-bottom:0;}
+.stat{font-family:"Shippori Mincho",serif;font-weight:800;font-size:40px;line-height:1;color:var(--shu);}
+.stat small{font-size:17px;color:var(--ink);margin-left:3px;}
+.lbl{font-size:14px;color:var(--muted);margin-top:4px;}
+ul{margin:0 0 12px;padding-left:1.2em;} li{margin:0 0 6px;} li::marker{color:var(--shu);}
+.note{background:var(--ai-soft);border-left:5px solid var(--ai);border-radius:8px;padding:12px 16px;margin:14px 0;}
+.note.obs::before{content:"💭 Claude 的觀察";display:block;font-weight:700;color:var(--ai);font-size:14px;}
+table{width:100%;border-collapse:collapse;font-size:15.5px;background:var(--card);border:2px solid var(--ink);border-radius:12px;overflow:hidden;}
+th{background:var(--ai);color:var(--washi);text-align:left;padding:9px 12px;font-weight:700;}
+td{padding:9px 12px;border-top:1.5px solid var(--washi-2);vertical-align:top;}
+td.ok{color:#2D6A4F;font-weight:700;white-space:nowrap;} td.ng{color:var(--shu);font-weight:700;white-space:nowrap;}
+.links a.big{display:block;text-decoration:none;color:var(--ink);}
+.links a.big:hover h3{color:var(--shu);}
+.links .path{font-family:Consolas,monospace;font-size:13px;color:var(--muted);word-break:break-all;}
+.flow-box{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:14px;overflow-x:auto;}
+.flow-box svg{display:block;min-width:900px;width:100%;height:auto;}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:14px;color:var(--muted);margin-top:10px;}
+.legend span::before{content:"";display:inline-block;width:26px;height:0;border-top:3px solid var(--ink);vertical-align:middle;margin-right:6px;}
+.legend .lp::before{border-top:3px dashed var(--shu);}
+.legend .hl::before{height:12px;border:2.5px solid var(--shu);background:var(--shu-soft);border-radius:3px;}
+.qa{border-left:5px solid var(--shu);padding:4px 0 4px 18px;margin:0 0 22px;}
+.qa .q{font-family:"Shippori Mincho",serif;font-weight:800;font-size:20px;margin-bottom:6px;}
+.timeline{list-style:none;padding:0;margin:0;counter-reset:t;}
+.timeline li{position:relative;padding:0 0 14px 46px;margin:0;}
+.timeline li::before{counter-increment:t;content:counter(t);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--ai);color:var(--washi);display:grid;place-items:center;font-size:14px;font-weight:700;}
+.timeline li.bad::before{background:var(--shu);}
+.timeline li::after{content:"";position:absolute;left:14px;top:34px;bottom:0;border-left:2px dotted var(--washi-2);}
+.timeline li:last-child::after{display:none;}
+footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
+@media (max-width:760px){
+  .wrap{padding:0 16px 0 28px;}
+  header img{position:static;width:120px;display:block;margin-top:14px;}
+  header h1{font-size:32px;}
+  .g2,.g3,.g4{grid-template-columns:1fr;}
+  table{font-size:14px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">第十週作業・LLM Wiki × 教學 HTML 簡報</div>
+  <h1>LLM <span class="x">＋</span> RL × 無人機<br>論文知識庫與教學簡報</h1>
+  <p>這頁說明：wiki 的主題與成果、兩份簡報、資料怎麼被取得、整理、檢查再變成簡報的流程（loop / graph），一次實際執行的檢查紀錄，以及反思。</p>
+  <img src="../assets/chibi-taisho/researcher.svg" alt="">
+  <nav>
+    <a href="#s1">1. 主題</a><a href="#s2">2. Wiki 成果</a><a href="#s3">3. 簡報</a><a href="#s4">4. Loop / Graph</a><a href="#s5">5. 執行紀錄</a><a href="#s6">6. 反思</a>
+  </nav>
+</header>
+<div class="wave"></div>
+
+<!-- 1 -->
+<section id="s1">
+  <h2><span class="hanko">一</span>LLM Wiki 主題與簡介</h2>
+  <p>主題是<strong>「大型語言模型（LLM）＋ 強化學習（RL）應用於無人機」</strong>。這是一個很新的交叉領域：LLM 擅長看全局、懂語言，但慢又會幻覺；RL 反應快，但視野小。這個 wiki 長期追蹤「兩者怎麼分工」的論文。</p>
+  <p>建置方式參考 Karpathy 的 LLM Wiki 模式，分工如下：</p>
+  <div class="grid g2">
+    <div class="card kin"><h3>👤 我負責</h3><ul><li>決定主題範圍與方向</li><li>蒐集論文、把 PDF 放進 <code>raw/inbox/</code></li><li>提問、決定下一批要追什麼文獻</li></ul></div>
+    <div class="card ai"><h3>🤖 LLM（Claude Code）負責</h3><ul><li>閱讀 PDF、寫摘要頁</li><li>交叉連結概念、任務、實體頁</li><li>維持一致性：矛盾、斷鏈、分類檢查</li></ul></div>
+  </div>
+  <div class="note"><b>先討論、後生成：</b>動手前先討論並決定了主題範圍、正文語言（繁中、英文檔名）、批次匯入方式、論文分類法和簡報風格，寫成規則檔 <code>CLAUDE.md</code>（schema），之後所有頁面都照這份規則產生。</div>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2><span class="hanko">二</span>LLM Wiki 成果</h2>
+  <div class="grid g4">
+    <div class="card"><div class="stat">13<small>篇</small></div><div class="lbl">已匯入論文（2 批：8＋5）</div></div>
+    <div class="card"><div class="stat">47<small>頁</small></div><div class="lbl">wiki 頁面總數</div></div>
+    <div class="card"><div class="stat">0</div><div class="lbl">斷掉的連結／孤兒頁</div></div>
+    <div class="card"><div class="stat">2<small>處</small></div><div class="lbl">記錄下來的文獻矛盾</div></div>
+  </div>
+  <table style="margin-top:18px">
+    <tr><th style="width:22%">資料夾</th><th style="width:12%">頁數</th><th>內容</th></tr>
+    <tr><td><code>papers/</code></td><td>13</td><td>一篇論文一頁：方法、實驗、具體數字、限制、與其他論文的關係</td></tr>
+    <tr><td><code>concepts/</code></td><td>14</td><td>方法與範式，例如階層式 LLM+RL、LLM 幻覺、CTDE、模仿學習</td></tr>
+    <tr><td><code>tasks/</code></td><td>9</td><td>無人機任務，例如對抗追逃、路徑巡訪、協同導航、搜救</td></tr>
+    <tr><td><code>entities/</code></td><td>6</td><td>模型與模擬器，例如 GPT-4o、Qwen2.5、PX4 SITL</td></tr>
+    <tr><td><code>synthesis/</code></td><td>2</td><td>跨論文分析：四種 LLM–RL 耦合模式、論文總比較表</td></tr>
+    <tr><td>根目錄</td><td>3</td><td><code>index.md</code>（目錄）、<code>log.md</code>（只能往後追加的紀錄）、<code>overview.md</code>（領域總覽）</td></tr>
+  </table>
+  <p style="margin-top:14px">每篇論文都標了 <code>relevance</code>：<em>core</em> = LLM、RL、無人機三者都有（3 篇）；<em>adjacent</em> = 缺其中一項、但方法可借鏡（10 篇）。adjacent 論文不拿來當這個領域的證據。</p>
+  <div class="grid g3 links" style="margin-top:6px">
+    <a class="big card" href="../wiki/index.md"><h3>📑 index.md</h3><div class="path">wiki/index.md</div></a>
+    <a class="big card" href="../wiki/overview.md"><h3>🗺️ overview.md</h3><div class="path">wiki/overview.md</div></a>
+    <a class="big card" href="../wiki/log.md"><h3>📜 log.md</h3><div class="path">wiki/log.md</div></a>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2><span class="hanko">三</span>教學 HTML 簡報</h2>
+  <div class="grid g2 links">
+    <a class="big card shu" href="2026-11-15-llm-rl-uav-teaching.html">
+      <h3>⭐ 主要作品：入門教學版（22 頁）</h3>
+      <p>給第一次接觸的人。先講 RL、LLM 是什麼，再用「軍師＋飛行員」「規劃者＋檢查員」「會開會的小隊」「家教」四個比喻介紹結合方式，最後有小測驗和名詞小辭典。</p>
+      <div class="path">slides/2026-11-15-llm-rl-uav-teaching.html</div>
+    </a>
+    <a class="big card ai" href="2026-11-15-llm-rl-uav-overview.html">
+      <h3>📚 進階版：文獻導讀（20 頁）</h3>
+      <p>給已經懂基礎的人：耦合模式比較表、三篇核心論文的數字、研究缺口與文獻間的矛盾。</p>
+      <div class="path">slides/2026-11-15-llm-rl-uav-overview.html</div>
+    </a>
+  </div>
+  <p style="margin-top:14px">操作：方向鍵翻頁、<code>F</code> 全螢幕、<code>Esc</code> 總覽。每一頁底部都標了對應的 wiki 頁面或論文 key；Claude 的推論另外標成「💭 觀察」，跟論文結論分開。</p>
+  <div class="note">Wiki 與簡報的對應：教學版每一頁用了哪些 wiki 頁面、哪些數字，都列在 <a href="2026-11-15-llm-rl-uav-teaching.sources.md">出處對照表</a>。</div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2><span class="hanko">四</span>Loop / Graph 設計</h2>
+  <p>整個流程分成三條線：<em>建立規則</em>（只做一次，必要時回頭修改）、<em>匯入迴圈</em>（每批論文跑一次）、<em>簡報產生</em>（每次要做簡報時跑一次）。</p>
+  <div class="flow-box">
+<svg viewBox="0 0 1100 700" xmlns="http://www.w3.org/2000/svg" font-family="Zen Maru Gothic, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#2B2024"/></marker>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#B8323C"/></marker>
+    <style>
+      .bx{fill:#FBF5E8;stroke:#2B2024;stroke-width:2;}
+      .bx.chk{fill:#F3D9D6;stroke:#B8323C;stroke-width:2.5;}
+      .bx.new{fill:#F3D9D6;stroke:#B8323C;stroke-width:3.5;}
+      .t{font-size:14px;fill:#2B2024;text-anchor:middle;dominant-baseline:middle;}
+      .lane{font-family:"Shippori Mincho",serif;font-weight:800;font-size:19px;text-anchor:middle;}
+      .ln{stroke:#2B2024;stroke-width:2;fill:none;marker-end:url(#ah);}
+      .lp{stroke:#B8323C;stroke-width:2;stroke-dasharray:6 4;fill:none;marker-end:url(#ahr);}
+      .lt{font-size:12.5px;fill:#B8323C;font-weight:700;}
+    </style>
+  </defs>
+  <!-- lane headers -->
+  <rect x="40" y="18" width="260" height="38" rx="8" fill="#D9A441"/><text x="170" y="38" class="lane" fill="#2B2024" dominant-baseline="middle">建立規則（一次）</text>
+  <rect x="400" y="18" width="300" height="38" rx="8" fill="#2E3A6B"/><text x="550" y="38" class="lane" fill="#F4EAD5" dominant-baseline="middle">匯入迴圈（每批）</text>
+  <rect x="790" y="18" width="290" height="38" rx="8" fill="#B8323C"/><text x="935" y="38" class="lane" fill="#F4EAD5" dominant-baseline="middle">簡報產生（每次）</text>
+
+  <!-- lane 1 -->
+  <rect class="bx" x="50" y="80" width="240" height="44" rx="8"/><text class="t" x="170" y="102">我提出主題</text>
+  <rect class="bx" x="50" y="150" width="240" height="44" rx="8"/><text class="t" x="170" y="172">討論：範圍、語言、分類、風格</text>
+  <rect class="bx" x="50" y="220" width="240" height="44" rx="8"/><text class="t" x="170" y="242">寫成 CLAUDE.md（schema）</text>
+  <rect class="bx" x="50" y="290" width="240" height="44" rx="8"/><text class="t" x="170" y="312">建立資料夾、index、log</text>
+  <path class="ln" d="M170 124 V148"/><path class="ln" d="M170 194 V218"/><path class="ln" d="M170 264 V288"/>
+  <path class="ln" d="M290 312 H330 V102 H408"/>
+
+  <!-- lane 2 -->
+  <rect class="bx" x="410" y="80" width="280" height="44" rx="8"/><text class="t" x="550" y="102">① 取得資料：PDF 放進 inbox</text>
+  <rect class="bx" x="410" y="150" width="280" height="44" rx="8"/><text class="t" x="550" y="172">② 逐篇閱讀 PDF</text>
+  <rect class="bx" x="410" y="220" width="280" height="44" rx="8"/><text class="t" x="550" y="242">③ 寫論文頁＋決定分類</text>
+  <rect class="bx" x="410" y="290" width="280" height="44" rx="8"/><text class="t" x="550" y="312">④ 更新概念／任務／實體＋雙向連結</text>
+  <rect class="bx chk" x="410" y="360" width="280" height="44" rx="8"/><text class="t" x="550" y="382">⑤ 檢查矛盾 → 寫「爭議」段落</text>
+  <rect class="bx chk" x="410" y="430" width="280" height="44" rx="8"/><text class="t" x="550" y="452">⑥ 連結檢查（斷鏈／孤兒頁）</text>
+  <rect class="bx" x="410" y="500" width="280" height="44" rx="8"/><text class="t" x="550" y="522">⑦ 更新 index／overview／log</text>
+  <rect class="bx" x="410" y="570" width="280" height="44" rx="8"/><text class="t" x="550" y="592">⑧ 批次摘要 → 我決定下一批</text>
+  <path class="ln" d="M550 124 V148"/><path class="ln" d="M550 194 V218"/><path class="ln" d="M550 264 V288"/><path class="ln" d="M550 334 V358"/><path class="ln" d="M550 404 V428"/><path class="ln" d="M550 474 V498"/><path class="ln" d="M550 544 V568"/>
+  <!-- loops lane 2 -->
+  <path class="lp" d="M690 242 H710 V172 H692"/><text class="lt" x="715" y="210" font-size="12">每篇重複</text>
+  <path class="lp" d="M690 452 H740 V322 H692"/><text class="lt" x="746" y="390">有斷鏈</text><text class="lt" x="746" y="405">→ 修正</text>
+  <path class="lp" d="M410 592 H378 V110 H408"/><text class="lt" x="412" y="638">↺ 追引用文獻 → 回到 ① 下一批</text>
+  <!-- taxonomy loop back to schema -->
+  <path class="lp" d="M410 236 H300 V242 H292"/><text class="lt" x="180" y="279" font-size="12">↑ 分類不合時從 ③ 退回</text>
+
+  <!-- lane 3 -->
+  <rect class="bx" x="800" y="80" width="270" height="44" rx="8"/><text class="t" x="935" y="102">Ⓐ 查 index → 讀相關頁</text>
+  <rect class="bx chk" x="800" y="150" width="270" height="44" rx="8"/><text class="t" x="935" y="172">Ⓑ wiki 缺頁？→ 先補 wiki</text>
+  <rect class="bx new" x="800" y="220" width="270" height="44" rx="8"/><text class="t" x="935" y="242">Ⓒ 出處對照表（每頁→wiki→數字）</text>
+  <rect class="bx" x="800" y="290" width="270" height="44" rx="8"/><text class="t" x="935" y="312">Ⓓ 產生簡報 HTML</text>
+  <rect class="bx chk" x="800" y="360" width="270" height="44" rx="8"/><text class="t" x="935" y="382">Ⓔ 數字自動比對 wiki</text>
+  <rect class="bx chk" x="800" y="430" width="270" height="44" rx="8"/><text class="t" x="935" y="452">Ⓕ 人工核對說法強度</text>
+  <rect class="bx chk" x="800" y="500" width="270" height="44" rx="8"/><text class="t" x="935" y="522">Ⓖ 逐頁截圖檢查版面</text>
+  <rect class="bx" x="800" y="570" width="270" height="44" rx="8"/><text class="t" x="935" y="592">Ⓗ 完成 → 寫 log</text>
+  <path class="ln" d="M935 124 V148"/><path class="ln" d="M935 194 V218"/><path class="ln" d="M935 264 V288"/><path class="ln" d="M935 334 V358"/><path class="ln" d="M935 404 V428"/><path class="ln" d="M935 474 V498"/><path class="ln" d="M935 544 V568"/>
+  <!-- wiki ready -->
+  <path class="ln" d="M690 522 H786 V102 H798"/><text x="786" y="70" font-size="12.5" fill="#2B2024" text-anchor="middle">wiki 就緒</text>
+  <!-- Ⓑ writes wiki -->
+  <path class="lp" d="M800 172 H772 V302 H692"/><text class="lt" x="700" y="294" font-size="12">補頁</text>
+  <!-- checks fail -> regenerate -->
+  <path class="lp" d="M1070 382 H1088 V312 H1072"/>
+  <path class="lp" d="M1070 452 H1092 V318 H1072" marker-end="none"/>
+  <path class="lp" d="M1070 522 H1096 V324 H1072"/>
+  <text class="lt" x="1096" y="640" text-anchor="end">Ⓔ Ⓕ Ⓖ 不通過 → 回 Ⓓ 重新產生</text>
+</svg>
+  </div>
+  <div class="legend"><span>正常流程</span><span class="lp">重複／退回</span><span class="hl">檢查節點（粗框 Ⓒ 是反思後新增的）</span></div>
+
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card ai">
+      <h3>🔁 哪些步驟會重複？</h3>
+      <ul>
+        <li><b>②③ 每篇論文</b>都跑一次</li>
+        <li><b>①～⑧ 每一批</b>跑一次；⑧ 會根據摘要決定追哪些引用文獻，再回到 ①</li>
+        <li><b>Ⓐ～Ⓗ 每做一份簡報</b>跑一次</li>
+      </ul>
+    </div>
+    <div class="card shu">
+      <h3>🔍 哪裡要檢查或重新產生？</h3>
+      <ul>
+        <li>⑤ 新論文和舊內容矛盾 → 不覆蓋，寫成「爭議與矛盾」段落</li>
+        <li>⑥ 斷鏈 → 回 ④ 修正</li>
+        <li>③ 分類放不進去 → 標 <code>[taxonomy?]</code>，必要時回頭改 schema</li>
+        <li>Ⓔ Ⓕ Ⓖ 任一項不通過 → 回 Ⓓ 重新產生該頁</li>
+      </ul>
+    </div>
+    <div class="card kin">
+      <h3>💡 為什麼這樣設計？</h3>
+      <ul>
+        <li><b>匯入和簡報分開</b>：wiki 是長期累積的，簡報只是從 wiki 取出來的一種輸出</li>
+        <li><b>所有內容都要能追溯</b>：每個數字都要找得到對應的 wiki 頁，wiki 頁再對應到原始 PDF</li>
+        <li><b>檢查要越早越好</b>：越晚發現錯，要重做的東西越多（見第六節）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2><span class="hanko">五</span>一次實際執行的紀錄</h2>
+  <p>以下是 2026-11-15 產生<b>入門教學版簡報</b>那一次的執行（Ⓐ～Ⓗ），完整紀錄見 <a href="2026-11-15-llm-rl-uav-teaching.sources.md">出處對照表與核對紀錄</a>。</p>
+  <ol class="timeline">
+    <li><b>Ⓐ 查 wiki</b>：從 index 找出 ctde、hierarchical-llm-rl、imitation-learning 等概念頁，以及各任務頁和 3 篇 core 論文頁。</li>
+    <li class="bad"><b>Ⓑ 發現缺頁</b>：教學簡報一定要講「RL 是什麼」「LLM 是什麼」，但 wiki 沒有入門頁。→ 先在 wiki 新增 <code>reinforcement-learning</code>、<code>large-language-model</code> 兩頁，並標明基本定義屬於背景知識、不是論文內容。wiki 從 45 頁變成 47 頁。</li>
+    <li><b>Ⓒ 出處對照表</b>：列出 18 頁內容各自用哪些 wiki 頁面、哪些數字，然後才開始寫簡報。</li>
+    <li><b>Ⓓ 產生簡報</b>：22 頁 HTML（reveal.js），沿用第一份簡報的大正和風版型。</li>
+    <li><b>Ⓔ 數字自動比對</b>：用腳本把簡報裡的 28 個數字逐一比對 wiki 全文。只有「47」不在 wiki 裡，那是 wiki 頁數，實際數過確認正確。</li>
+    <li class="bad"><b>Ⓕ 人工核對說法</b>：抓到 1 處說得比來源更強。原本寫「少了檢查員，LLM 的幻覺讓耗能多了 58%」，但 wiki 只說「只用 LLM 時耗能多 58%」，沒有說差距全部來自幻覺。→ 回 Ⓓ 改寫。</li>
+    <li class="bad"><b>Ⓖ 逐頁截圖</b>：RL 循環圖的文字壓在虛線上；流程圖擠在半欄裡。→ 回 Ⓓ 修版面，再截圖確認。</li>
+    <li><b>Ⓗ 完成</b>：連結檢查 47 頁、0 斷鏈、0 孤兒頁；在 <code>log.md</code> 追加一筆紀錄。</li>
+  </ol>
+  <h3 style="margin-top:22px">匯入迴圈的執行結果（2 批）</h3>
+  <table>
+    <tr><th style="width:16%">批次</th><th style="width:22%">來源</th><th>結果</th><th style="width:30%">檢查抓到的問題</th></tr>
+    <tr><td>第 1 批</td><td>我蒐集的 8 篇 PDF</td><td>core 3／adjacent 5；新增 11 個概念、7 個任務、6 個實體頁</td><td>8 篇中 5 篇不是三者都有 → 回頭改 schema，新增 <code>relevance</code> 欄位</td></tr>
+    <tr><td>第 2 批</td><td>從第 1 批的參考文獻追出 5 篇</td><td>全部 adjacent；新增 2 處「爭議與矛盾」</td><td>寫論文頁時連到不存在的頁面 <code>eureka-reward-design</code>，被連結檢查抓到</td></tr>
+  </table>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2><span class="hanko">六</span>反思</h2>
+  <div class="qa">
+    <div class="q">Q1. 哪一個節點最常出錯？</div>
+    <p><strong>「Ⓓ 產生簡報」</strong>。錯的不是版面，而是<b>內容偏離 wiki</b>：</p>
+    <ul>
+      <li>第一份簡報：MAPPO 那頁把 CI-HRL 的說法寫錯，參考文獻標題是憑印象改寫的</li>
+      <li>教學版：把「只用 LLM 多耗 58%」說成「幻覺造成 58%」</li>
+    </ul>
+    <p>共同原因：LLM 寫簡報時會<b>改寫、簡化</b>原文，而改寫的過程容易把說法變強或變形。教學版要用比喻、要白話，這個風險更高。</p>
+    <p>次常出錯的是匯入時的分類節點 ③：第一批 8 篇裡有 5 篇放不進原本「LLM+RL+UAV」的框架。</p>
+  </div>
+  <div class="qa">
+    <div class="q">Q2. 發現問題後，把檢查往前移到哪一步？</div>
+    <p>從「寫完再看」移到<strong>寫之前的 Ⓒ 出處對照表</strong>：每一頁先寫下要用哪個 wiki 頁面、哪個數字，簡報只能用表上的內容。另外加了兩道機械式檢查：</p>
+    <ul>
+      <li><b>Ⓑ 缺頁檢查</b>：wiki 沒有的內容先補進 wiki，簡報不直接用一般知識</li>
+      <li><b>Ⓔ 數字自動比對</b>：用腳本確認每個數字都在 wiki 裡</li>
+    </ul>
+    <p>結果：第一份簡報是寫完才發現 2 類內容錯誤；教學版只有 1 處，而且在完成前就被 Ⓕ 抓到。</p>
+  </div>
+  <div class="qa">
+    <div class="q">Q3. 有沒有因此修改 workflow / graph？為什麼？</div>
+    <p><b>有，改了三處：</b></p>
+    <ul>
+      <li><b>簡報流程新增 Ⓑ Ⓒ Ⓔ</b>（上圖粗框與紅框）：因為最常出錯的是內容，所以檢查要針對「內容是否來自 wiki」，而不是只檢查版面</li>
+      <li><b>匯入流程加上「分類不合 → 改 schema」的回頭路</b>：第一批就證明原本的分類太窄，硬塞會讓 wiki 失真</li>
+      <li><b>每批匯入後固定跑 ⑥ 連結檢查</b>：斷鏈是 LLM 自己編出頁面名稱造成的，人工很難發現</li>
+    </ul>
+    <p>設計原則：<em>能用程式檢查的就用程式</em>（數字、連結），<em>需要判斷的才用人工</em>（說法強度、分類）。</p>
+  </div>
+  <div class="note obs">還沒解決的部分：Ⓕ「說法強度」目前仍要靠逐條人工核對，沒有自動化。另外，wiki 本身的正確性仍取決於 ② 閱讀 PDF 的品質。目前會在論文頁標註「待確認」，但沒有回頭抽查原文的固定步驟，這是下一步可以補的檢查節點。</div>
+</section>
+
+<footer>
+  <div class="wave"></div>
+  LLM Wiki × 教學 HTML 簡報｜2026-11-15｜wiki 與簡報內容由 Claude Code 依 <code>CLAUDE.md</code> 規則產生，主題、方向與文獻選擇由我決定
+</footer>
+</div>
+</body>
+</html>

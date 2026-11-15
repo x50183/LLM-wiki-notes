@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- LLM ロボくん -->
+  <g stroke="#5A4A5E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M140 18 h44 a10 10 0 0 1 10 10 v20 a10 10 0 0 1 -10 10 h-26 l-10 10 v-10 h-8 a10 10 0 0 1 -10 -10 v-20 a10 10 0 0 1 10 -10z" fill="#fff"/>
+    <line x1="100" y1="52" x2="100" y2="36"/>
+    <circle cx="100" cy="30" r="7" fill="#FFB7C5"/>
+    <circle cx="44" cy="96" r="10" fill="#FFE08A"/>
+    <circle cx="156" cy="96" r="10" fill="#FFE08A"/>
+    <rect x="70" y="138" width="60" height="40" rx="16" fill="#B8E6D2"/>
+    <line x1="72" y1="152" x2="54" y2="164"/>
+    <line x1="128" y1="152" x2="146" y2="140"/>
+    <circle cx="51" cy="166" r="6" fill="#B8E6D2"/>
+    <circle cx="149" cy="138" r="6" fill="#B8E6D2"/>
+    <rect x="50" y="52" width="100" height="90" rx="32" fill="#B8E6D2"/>
+    <rect x="64" y="66" width="72" height="56" rx="20" fill="#4A5B6E"/>
+  </g>
+  <g fill="#5A4A5E">
+    <circle cx="154" cy="38" r="4"/>
+    <circle cx="166" cy="38" r="4"/>
+    <circle cx="178" cy="38" r="4"/>
+  </g>
+  <g fill="none" stroke="#9FFFE0" stroke-width="4.5" stroke-linecap="round">
+    <path d="M78 96 Q86 86 94 96"/>
+    <path d="M106 96 Q114 86 122 96"/>
+    <path d="M93 106 Q100 112 107 106"/>
+  </g>
+  <ellipse cx="74" cy="110" rx="5" ry="3" fill="#FF9AA2" opacity="0.8"/>
+  <ellipse cx="126" cy="110" rx="5" ry="3" fill="#FF9AA2" opacity="0.8"/>
+  <path d="M92 154 l8 6 8 -6" fill="none" stroke="#5A4A5E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

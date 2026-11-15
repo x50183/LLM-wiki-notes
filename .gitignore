@@ -1,0 +1,12 @@
+# 論文 PDF 有著作權，不公開；只公開自己寫的 wiki 摘要
+raw/papers/
+raw/inbox/*
+*.pdf
+
+# 本機工具設定
+.claude/
+
+# 系統檔
+Thumbs.db
+desktop.ini
+.DS_Store

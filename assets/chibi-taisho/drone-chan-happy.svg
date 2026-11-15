@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- ドローンちゃん（大正和風）：うれしい・桜吹雪 -->
+  <defs>
+    <pattern id="sg" width="16" height="8" patternUnits="userSpaceOnUse">
+      <rect width="16" height="8" fill="#2E3A6B"/>
+      <g stroke="#F4EAD5" stroke-width="1" fill="#2E3A6B">
+        <g transform="translate(8 4)"><circle r="7.5"/><circle r="5" fill="none"/><circle r="2.5" fill="none"/></g>
+        <g transform="translate(0 8)"><circle r="7.5"/><circle r="5" fill="none"/><circle r="2.5" fill="none"/></g>
+        <g transform="translate(16 8)"><circle r="7.5"/><circle r="5" fill="none"/><circle r="2.5" fill="none"/></g>
+      </g>
+    </pattern>
+    <clipPath id="body"><ellipse cx="100" cy="112" rx="56" ry="48"/></clipPath>
+    <path id="petal" d="M0 9 C-7 4 -7 -6 -3 -9 L0 -6 L3 -9 C7 -6 7 4 0 9Z" fill="#F6B6C6" stroke="#2B2024" stroke-width="1.6" stroke-linejoin="round"/>
+  </defs>
+  <use href="#petal" transform="translate(22 100) rotate(-30)"/>
+  <use href="#petal" transform="translate(178 96) rotate(40) scale(1.1)"/>
+  <use href="#petal" transform="translate(30 160) rotate(70) scale(0.8)"/>
+  <use href="#petal" transform="translate(170 160) rotate(-60) scale(0.9)"/>
+  <use href="#petal" transform="translate(100 18) rotate(15) scale(0.8)"/>
+  <g stroke="#2B2024" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="68" y1="92" x2="40" y2="62"/>
+    <line x1="132" y1="92" x2="160" y2="62"/>
+    <ellipse cx="40" cy="56" rx="30" ry="8" fill="#2E3A6B"/>
+    <ellipse cx="160" cy="56" rx="30" ry="8" fill="#2E3A6B"/>
+    <circle cx="40" cy="57" r="5" fill="#D9A441"/>
+    <circle cx="160" cy="57" r="5" fill="#D9A441"/>
+    <line x1="100" y1="66" x2="100" y2="48"/>
+    <circle cx="100" cy="42" r="7" fill="#D9A441"/>
+    <line x1="82" y1="158" x2="72" y2="174"/>
+    <line x1="118" y1="158" x2="128" y2="174"/>
+    <ellipse cx="100" cy="112" rx="56" ry="48" fill="#F4EAD5"/>
+  </g>
+  <g clip-path="url(#body)">
+    <rect x="40" y="144" width="120" height="20" fill="url(#sg)"/>
+    <rect x="40" y="140" width="120" height="5" fill="#D9A441"/>
+    <path d="M30 90 Q100 64 170 90 L170 76 Q100 50 30 76Z" fill="#B8323C" stroke="#2B2024" stroke-width="3"/>
+  </g>
+  <ellipse cx="100" cy="112" rx="56" ry="48" fill="none" stroke="#2B2024" stroke-width="4.5"/>
+  <g fill="#B8323C" stroke="#2B2024" stroke-width="3" stroke-linejoin="round">
+    <path d="M148 78 q22 -14 40 -10 l-4 9 q-16 -2 -34 10z"/>
+    <path d="M148 84 q20 0 34 12 l-8 6 q-12 -10 -28 -12z"/>
+  </g>
+  <g fill="none" stroke="#2B2024" stroke-width="5" stroke-linecap="round">
+    <path d="M73 112 Q82 101 91 112"/>
+    <path d="M109 112 Q118 101 127 112"/>
+  </g>
+  <g stroke="#E06B7A" stroke-width="2.5" stroke-linecap="round">
+    <path d="M60 128 l5 -6 M66 128 l5 -6 M72 128 l5 -6"/>
+    <path d="M123 128 l5 -6 M129 128 l5 -6 M135 128 l5 -6"/>
+  </g>
+  <path d="M88 124 Q100 142 112 124 Z" fill="#B8323C" stroke="#2B2024" stroke-width="3.5" stroke-linejoin="round"/>
+</svg>

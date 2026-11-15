@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- ドローンちゃん（大正和風）：決意・波の型 -->
+  <defs>
+    <pattern id="sg" width="16" height="8" patternUnits="userSpaceOnUse">
+      <rect width="16" height="8" fill="#2E3A6B"/>
+      <g stroke="#F4EAD5" stroke-width="1" fill="#2E3A6B">
+        <g transform="translate(8 4)"><circle r="7.5"/><circle r="5" fill="none"/><circle r="2.5" fill="none"/></g>
+        <g transform="translate(0 8)"><circle r="7.5"/><circle r="5" fill="none"/><circle r="2.5" fill="none"/></g>
+        <g transform="translate(16 8)"><circle r="7.5"/><circle r="5" fill="none"/><circle r="2.5" fill="none"/></g>
+      </g>
+    </pattern>
+    <clipPath id="body"><ellipse cx="100" cy="118" rx="56" ry="48"/></clipPath>
+  </defs>
+  <g fill="none" stroke-linecap="round">
+    <path d="M34 168 C 2 120 30 52 96 44 C 150 38 190 80 178 136" stroke="#3D7CC9" stroke-width="14" opacity="0.85"/>
+    <path d="M34 168 C 2 120 30 52 96 44 C 150 38 190 80 178 136" stroke="#fff" stroke-width="3.5" stroke-dasharray="18 10"/>
+    <path d="M178 136 c -2 16 -22 20 -26 6 c -3 -10 10 -16 15 -8" stroke="#3D7CC9" stroke-width="8"/>
+    <path d="M34 168 c 6 10 22 8 22 -4 c 0 -8 -10 -10 -13 -3" stroke="#3D7CC9" stroke-width="8"/>
+  </g>
+  <g stroke="#2B2024" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="68" y1="98" x2="40" y2="68"/>
+    <line x1="132" y1="98" x2="160" y2="68"/>
+    <ellipse cx="40" cy="62" rx="30" ry="8" fill="#2E3A6B"/>
+    <ellipse cx="160" cy="62" rx="30" ry="8" fill="#2E3A6B"/>
+    <circle cx="40" cy="63" r="5" fill="#D9A441"/>
+    <circle cx="160" cy="63" r="5" fill="#D9A441"/>
+    <line x1="100" y1="72" x2="100" y2="54"/>
+    <circle cx="100" cy="48" r="7" fill="#D9A441"/>
+    <line x1="82" y1="164" x2="76" y2="182"/>
+    <line x1="118" y1="164" x2="124" y2="182"/>
+    <line x1="64" y1="182" x2="88" y2="182"/>
+    <line x1="112" y1="182" x2="136" y2="182"/>
+    <ellipse cx="100" cy="118" rx="56" ry="48" fill="#F4EAD5"/>
+  </g>
+  <g clip-path="url(#body)">
+    <rect x="40" y="150" width="120" height="20" fill="url(#sg)"/>
+    <rect x="40" y="146" width="120" height="5" fill="#D9A441"/>
+    <path d="M30 96 Q100 70 170 96 L170 82 Q100 56 30 82Z" fill="#B8323C" stroke="#2B2024" stroke-width="3"/>
+  </g>
+  <ellipse cx="100" cy="118" rx="56" ry="48" fill="none" stroke="#2B2024" stroke-width="4.5"/>
+  <g fill="#B8323C" stroke="#2B2024" stroke-width="3" stroke-linejoin="round">
+    <path d="M148 84 q22 -14 40 -10 l-4 9 q-16 -2 -34 10z"/>
+    <path d="M148 90 q20 0 34 12 l-8 6 q-12 -10 -28 -12z"/>
+  </g>
+  <g stroke="#2B2024" stroke-width="6" stroke-linecap="round">
+    <line x1="68" y1="100" x2="90" y2="108"/>
+    <line x1="132" y1="100" x2="110" y2="108"/>
+  </g>
+  <g>
+    <ellipse cx="82" cy="122" rx="8.5" ry="10.5" fill="#2B2024"/>
+    <ellipse cx="82" cy="125" rx="5.5" ry="6.5" fill="#3D7CC9"/>
+    <circle cx="79" cy="118" r="3.2" fill="#fff"/>
+    <circle cx="85" cy="128" r="1.5" fill="#fff"/>
+    <ellipse cx="118" cy="122" rx="8.5" ry="10.5" fill="#2B2024"/>
+    <ellipse cx="118" cy="125" rx="5.5" ry="6.5" fill="#3D7CC9"/>
+    <circle cx="115" cy="118" r="3.2" fill="#fff"/>
+    <circle cx="121" cy="128" r="1.5" fill="#fff"/>
+  </g>
+  <g stroke="#E06B7A" stroke-width="2.5" stroke-linecap="round">
+    <path d="M60 140 l5 -6 M66 140 l5 -6 M72 140 l5 -6"/>
+    <path d="M123 140 l5 -6 M129 140 l5 -6 M135 140 l5 -6"/>
+  </g>
+  <path d="M93 138 Q100 145 107 138 Z" fill="#B8323C" stroke="#2B2024" stroke-width="3" stroke-linejoin="round"/>
+</svg>

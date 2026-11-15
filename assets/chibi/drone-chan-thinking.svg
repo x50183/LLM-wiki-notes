@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- ドローンちゃん：考え中・疑問 -->
+  <g stroke="#5A4A5E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="64" y1="96" x2="34" y2="70"/>
+    <line x1="128" y1="90" x2="156" y2="58"/>
+    <ellipse cx="34" cy="64" rx="28" ry="8" fill="#CDB4F0" transform="rotate(8 34 64)"/>
+    <ellipse cx="156" cy="52" rx="28" ry="8" fill="#CDB4F0" transform="rotate(8 156 52)"/>
+    <circle cx="34" cy="66" r="5" fill="#5A4A5E"/>
+    <circle cx="156" cy="54" r="5" fill="#5A4A5E"/>
+    <line x1="98" y1="64" x2="102" y2="46"/>
+    <circle cx="103" cy="40" r="8" fill="#FFE08A"/>
+    <line x1="80" y1="154" x2="74" y2="174"/>
+    <line x1="116" y1="152" x2="122" y2="172"/>
+    <ellipse cx="96" cy="112" rx="56" ry="48" fill="#FFD6E0" transform="rotate(8 96 112)"/>
+    <path d="M70 108 L86 108" />
+    <path d="M106 102 Q114 96 122 102" fill="none"/>
+    <path d="M90 130 Q96 126 104 130" fill="none" stroke-width="3.5"/>
+  </g>
+  <ellipse cx="114" cy="111" rx="6.5" ry="8.5" fill="#5A4A5E"/>
+  <circle cx="116" cy="108" r="2.6" fill="#fff"/>
+  <ellipse cx="64" cy="124" rx="8" ry="4.5" fill="#FF9AA2" opacity="0.6"/>
+  <ellipse cx="128" cy="128" rx="8" ry="4.5" fill="#FF9AA2" opacity="0.6"/>
+  <g fill="none" stroke="#9B8BD8" stroke-width="5" stroke-linecap="round">
+    <path d="M160 92 q0 -14 12 -14 q12 0 12 11 q0 8 -10 12 q-3 2 -3 8"/>
+  </g>
+  <circle cx="171" cy="122" r="3.5" fill="#9B8BD8"/>
+  <g fill="#5A4A5E" opacity="0.35">
+    <circle cx="142" cy="148" r="3"/>
+    <circle cx="152" cy="140" r="4"/>
+  </g>
+</svg>
