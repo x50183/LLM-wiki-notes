@@ -10,3 +10,5 @@ raw/inbox/*
 Thumbs.db
 desktop.ini
 .DS_Store
+# Obsidian 個人設定
+.obsidian/
