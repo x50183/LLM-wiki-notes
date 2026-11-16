@@ -40,7 +40,7 @@ em{font-style:normal;color:var(--ai);font-weight:700;}
 code{font-family:Consolas,ui-monospace,monospace;font-size:.88em;background:var(--ai-soft);color:var(--ai);padding:1px 6px;border-radius:5px;}
 a{color:var(--ai);}
 .grid{display:grid;gap:16px;}
-.g2{grid-template-columns:repeat(2,minmax(0,1fr));} .g3{grid-template-columns:repeat(3,minmax(0,1fr));} .g4{grid-template-columns:repeat(4,minmax(0,1fr));}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr));} .g3w{grid-template-columns:1.4fr 1fr 1fr;} .g3{grid-template-columns:repeat(3,minmax(0,1fr));} .g4{grid-template-columns:repeat(4,minmax(0,1fr));}
 .card{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:16px 20px;box-shadow:4px 4px 0 rgba(43,32,36,.13);}
 .card.ai{border-top:8px solid var(--ai);} .card.shu{border-top:8px solid var(--shu);} .card.kin{border-top:8px solid var(--kin);}
 .card p:last-child,.card ul:last-child{margin-bottom:0;}
@@ -76,7 +76,7 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
   .wrap{padding:0 16px 0 28px;}
   header img{position:static;width:120px;display:block;margin-top:14px;}
   header h1{font-size:32px;}
-  .g2,.g3,.g4{grid-template-columns:1fr;}
+  .g2,.g3,.g4,.g3w{grid-template-columns:1fr;}
   table{font-size:14px;}
 }
 </style>
@@ -86,7 +86,7 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
 
 <header>
   <h1>LLM <span class="x">＋</span> RL × 無人機<br>論文知識庫與教學簡報</h1>
-  <p>這頁說明：wiki 的主題與成果、兩份簡報、資料怎麼被取得、整理、檢查再變成簡報的流程（loop / graph），一次實際執行的檢查紀錄，以及反思。</p>
+  <p>這頁說明：wiki 的主題與成果、教學簡報、資料怎麼被取得、整理、檢查再變成簡報的流程（loop / graph），一次實際執行的檢查紀錄，以及反思。</p>
   <img src="../assets/chibi-taisho/researcher.svg" alt="">
   <nav>
     <a href="#s1">1. 主題</a><a href="#s2">2. Wiki 成果</a><a href="#s3">3. 簡報</a><a href="#s4">4. Loop / Graph</a><a href="#s5">5. 執行紀錄</a><a href="#s6">6. 反思</a>
@@ -103,7 +103,7 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
     <div class="card kin"><h3>👤 我負責</h3><ul><li>決定主題範圍與方向</li><li>蒐集論文、把 PDF 放進 <code>raw/inbox/</code></li><li>提問、決定下一批要追什麼文獻</li></ul></div>
     <div class="card ai"><h3>🤖 LLM（Claude Code）負責</h3><ul><li>閱讀 PDF、寫摘要頁</li><li>交叉連結概念、任務、實體頁</li><li>維持一致性：矛盾、斷鏈、分類檢查</li></ul></div>
   </div>
-  <div class="note"><b>先討論、後生成：</b>動手前先討論並決定了主題範圍、正文語言（繁中、英文檔名）、批次匯入方式、論文分類法和簡報風格，寫成規則檔 <code>CLAUDE.md</code>（schema），之後所有頁面都照這份規則產生。</div>
+  <div class="note"><b>先討論、後生成：</b>動手前先討論並決定了主題範圍、正文語言（繁中、英文檔名）、批次匯入方式、論文分類法和簡報風格，寫成規則檔 <code>CLAUDE.md</code>（schema），之後所有頁面都照這份規則產生。做簡報時也是先討論：先寫 <a href="llm-rl-uav-intro/00-brief.md">需求單（需求摘要）</a>，確認後才開始。</div>
 </section>
 
 <!-- 2 -->
@@ -135,26 +135,32 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
 <!-- 3 -->
 <section id="s3">
   <h2><span class="hanko">三</span>教學 HTML 簡報</h2>
-  <div class="grid g2 links">
-    <a class="big card shu" href="llm-rl-uav-teaching.html">
-      <h3>⭐ 主要作品：入門教學版（22 頁）</h3>
-      <p>給第一次接觸的人。先講 RL、LLM 是什麼，再用「軍師＋飛行員」「規劃者＋檢查員」「會開會的小隊」「家教」四個比喻介紹結合方式，最後有小測驗和名詞小辭典。</p>
-      <div class="path">slides/llm-rl-uav-teaching.html</div>
+  <div class="grid g3w links">
+    <a class="big card shu" href="llm-rl-uav-intro/deck.html">
+      <h3>⭐ 主要作品：入門教學版（19 頁）</h3>
+      <p>給沒學過 RL 的人。先認識兩位主角（RL、LLM），看出兩者互補；再用「軍師＋飛行員」「規劃者＋檢查員」「會開會的小隊」「家教」四個比喻介紹合作方式；最後談為什麼 LLM 還不能直接上機，並附小測驗。</p>
+      <div class="path">slides/llm-rl-uav-intro/deck.html</div>
     </a>
     <a class="big card ai" href="llm-rl-uav-overview.html">
       <h3>📚 進階版：文獻導讀（20 頁）</h3>
-      <p>給已經懂基礎的人：耦合模式比較表、三篇核心論文的數字、研究缺口與文獻間的矛盾。</p>
+      <p>給已經懂基礎的人：耦合模式比較表、三篇核心論文的數字、研究缺口與文獻之間的矛盾。</p>
       <div class="path">slides/llm-rl-uav-overview.html</div>
+    </a>
+    <a class="big card kin" href="llm-rl-uav-teaching.html">
+      <h3>🗂️ 舊版：第一版教學簡報（22 頁）</h3>
+      <p>改用 graph 流程之前做的版本，保留下來對照（見第六節）。</p>
+      <div class="path">slides/llm-rl-uav-teaching.html</div>
     </a>
   </div>
   <p style="margin-top:14px">操作：方向鍵翻頁、<code>F</code> 全螢幕、<code>Esc</code> 總覽。每一頁底部都標了對應的 wiki 頁面或論文 key；Claude 的推論另外標成「💭 觀察」，跟論文結論分開。</p>
-  <div class="note">Wiki 與簡報的對應：教學版每一頁用了哪些 wiki 頁面、哪些數字，都列在 <a href="llm-rl-uav-teaching.sources.md">出處對照表</a>。</div>
+  <div class="note">主要作品是照第四節的 graph 一步一步做出來的，每個節點都留下一個檔案：
+    <a href="llm-rl-uav-intro/00-brief.md">⓪ 需求單（需求摘要）</a>・<a href="llm-rl-uav-intro/01-materials.md">① 素材表</a>・<a href="llm-rl-uav-intro/02-outline.md">② 大綱</a>・<a href="llm-rl-uav-intro/03-content.md">③ 逐頁內容</a>・<a href="llm-rl-uav-intro/check-log.md">檢查紀錄</a></div>
 </section>
 
 <!-- 4 -->
 <section id="s4">
   <h2><span class="hanko">四</span>Loop / Graph 設計</h2>
-  <p>整個流程分成三條線：<em>建立規則</em>（只做一次，必要時回頭修改）、<em>匯入迴圈</em>（每批論文跑一次）、<em>簡報產生</em>（每次要做簡報時跑一次）。</p>
+  <p>整個流程分成三條線：<em>建立規則</em>（只做一次，必要時回頭修改）、<em>匯入迴圈</em>（每批論文跑一次）、<em>簡報產生</em>（每次要做簡報時跑一次）。簡報產生這條線是改版後的 graph：<b>每個節點產出一個檔案，每個檔案後面接一個檢查站</b>。</p>
   <div class="flow-box">
 <svg viewBox="0 0 1100 700" xmlns="http://www.w3.org/2000/svg" font-family="Zen Maru Gothic, sans-serif">
   <defs>
@@ -163,7 +169,8 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
     <style>
       .bx{fill:#FBF5E8;stroke:#2B2024;stroke-width:2;}
       .bx.chk{fill:#F3D9D6;stroke:#B8323C;stroke-width:2.5;}
-      .bx.new{fill:#F3D9D6;stroke:#B8323C;stroke-width:3.5;}
+      .bx.gate{fill:#F6E6C2;stroke:#A87A1E;stroke-width:2.5;}
+      .bx.new{stroke-width:4;}
       .t{font-size:14px;fill:#2B2024;text-anchor:middle;dominant-baseline:middle;}
       .lane{font-family:"Shippori Mincho",serif;font-weight:800;font-size:19px;text-anchor:middle;}
       .ln{stroke:#2B2024;stroke-width:2;fill:none;marker-end:url(#ah);}
@@ -198,56 +205,57 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
   <path class="lp" d="M690 242 H710 V172 H692"/><text class="lt" x="715" y="210" font-size="12">每篇重複</text>
   <path class="lp" d="M690 452 H740 V322 H692"/><text class="lt" x="746" y="390">有斷鏈</text><text class="lt" x="746" y="405">→ 修正</text>
   <path class="lp" d="M410 592 H378 V110 H408"/><text class="lt" x="412" y="638">↺ 追引用文獻 → 回到 ① 下一批</text>
-  <!-- taxonomy loop back to schema -->
   <path class="lp" d="M410 236 H300 V242 H292"/><text class="lt" x="180" y="279" font-size="12">↑ 分類不合時從 ③ 退回</text>
 
-  <!-- lane 3 -->
-  <rect class="bx" x="800" y="80" width="270" height="44" rx="8"/><text class="t" x="935" y="102">Ⓐ 查 index → 讀相關頁</text>
-  <rect class="bx chk" x="800" y="150" width="270" height="44" rx="8"/><text class="t" x="935" y="172">Ⓑ wiki 缺頁？→ 先補 wiki</text>
-  <rect class="bx new" x="800" y="220" width="270" height="44" rx="8"/><text class="t" x="935" y="242">Ⓒ 出處對照表（每頁→wiki→數字）</text>
-  <rect class="bx" x="800" y="290" width="270" height="44" rx="8"/><text class="t" x="935" y="312">Ⓓ 產生簡報 HTML</text>
-  <rect class="bx chk" x="800" y="360" width="270" height="44" rx="8"/><text class="t" x="935" y="382">Ⓔ 數字自動比對 wiki</text>
-  <rect class="bx chk" x="800" y="430" width="270" height="44" rx="8"/><text class="t" x="935" y="452">Ⓕ 人工核對說法強度</text>
-  <rect class="bx chk" x="800" y="500" width="270" height="44" rx="8"/><text class="t" x="935" y="522">Ⓖ 逐頁截圖檢查版面</text>
-  <rect class="bx" x="800" y="570" width="270" height="44" rx="8"/><text class="t" x="935" y="592">Ⓗ 完成 → 寫 log</text>
-  <path class="ln" d="M935 124 V148"/><path class="ln" d="M935 194 V218"/><path class="ln" d="M935 264 V288"/><path class="ln" d="M935 334 V358"/><path class="ln" d="M935 404 V428"/><path class="ln" d="M935 474 V498"/><path class="ln" d="M935 544 V568"/>
+  <!-- lane 3：graph 版 -->
+  <rect class="bx" x="800" y="80" width="250" height="44" rx="8"/><text class="t" x="925" y="102">⓪ 需求單 → G0 我確認</text>
+  <rect class="bx chk" x="800" y="150" width="250" height="44" rx="8"/><text class="t" x="925" y="172">① 素材表 → C1 wiki 缺頁？</text>
+  <rect class="bx new" x="800" y="220" width="250" height="44" rx="8"/><text class="t" x="925" y="242">② 大綱（每頁一句重點）</text>
+  <rect class="bx gate" x="800" y="290" width="250" height="44" rx="8"/><text class="t" x="925" y="312">C2 自查 ＋ G2 我確認</text>
+  <rect class="bx new" x="800" y="360" width="250" height="44" rx="8"/><text class="t" x="925" y="382">③ 逐頁內容（最終文字）</text>
+  <rect class="bx gate" x="800" y="430" width="250" height="44" rx="8"/><text class="t" x="925" y="452">C3 數字・說法 ＋ G3 我確認</text>
+  <rect class="bx gate" x="800" y="500" width="250" height="44" rx="8"/><text class="t" x="925" y="522">④ HTML → C4 比對・截圖 ＋ G4</text>
+  <rect class="bx" x="800" y="570" width="250" height="44" rx="8"/><text class="t" x="925" y="592">⑤ 發布：log、commit</text>
+  <path class="ln" d="M925 124 V148"/><path class="ln" d="M925 194 V218"/><path class="ln" d="M925 264 V288"/><path class="ln" d="M925 334 V358"/><path class="ln" d="M925 404 V428"/><path class="ln" d="M925 474 V498"/><path class="ln" d="M925 544 V568"/>
   <!-- wiki ready -->
   <path class="ln" d="M690 522 H786 V102 H798"/><text x="786" y="70" font-size="12.5" fill="#2B2024" text-anchor="middle">wiki 就緒</text>
-  <!-- Ⓑ writes wiki -->
+  <!-- C1 → 補 wiki -->
   <path class="lp" d="M800 172 H772 V302 H692"/><text class="lt" x="700" y="294" font-size="12">補頁</text>
-  <!-- checks fail -> regenerate -->
-  <path class="lp" d="M1070 382 H1088 V312 H1072"/>
-  <path class="lp" d="M1070 452 H1092 V318 H1072" marker-end="none"/>
-  <path class="lp" d="M1070 522 H1096 V324 H1072"/>
-  <text class="lt" x="1096" y="640" text-anchor="end">Ⓔ Ⓕ Ⓖ 不通過 → 回 Ⓓ 重新產生</text>
+  <!-- 依層級退回 -->
+  <path class="lp" d="M1050 312 H1064 V246 H1052"/>
+  <path class="lp" d="M1050 452 H1064 V386 H1052"/>
+  <path class="lp" d="M1050 516 H1078 V382 H1052"/>
+  <path class="lp" d="M1050 528 H1092 V236 H1052"/>
+  <text class="lt" x="1096" y="640" text-anchor="end">未通過 → 退回最早出錯的節點</text>
+  <text class="lt" x="1096" y="658" text-anchor="end">（結構回 ②、內容回 ③、版面留在 ④）</text>
 </svg>
   </div>
-  <div class="legend"><span>正常流程</span><span class="lp">重複／退回</span><span class="hl">檢查節點（粗框 Ⓒ 是反思後新增的）</span></div>
+  <div class="legend"><span>正常流程</span><span class="lp">重複／退回</span><span class="hl">檢查節點（黃底含使用者確認 G；粗框 ②③ 是改版後新增的節點）</span></div>
 
   <div class="grid g3" style="margin-top:22px">
     <div class="card ai">
       <h3>🔁 哪些步驟會重複？</h3>
       <ul>
-        <li><b>②③ 每篇論文</b>都跑一次</li>
-        <li><b>①～⑧ 每一批</b>跑一次；⑧ 會根據摘要決定追哪些引用文獻，再回到 ①</li>
-        <li><b>Ⓐ～Ⓗ 每做一份簡報</b>跑一次</li>
+        <li><b>匯入 ②③ 每篇論文</b>都跑一次；<b>①～⑧ 每一批</b>跑一次，⑧ 決定追哪些引用文獻再回到 ①</li>
+        <li><b>簡報 ⓪～⑤ 每做一份簡報</b>跑一次</li>
+        <li>任何檢查站沒通過，就從被退回的節點<b>往下重跑</b>，上游的檔案不動</li>
       </ul>
     </div>
     <div class="card shu">
       <h3>🔍 哪裡要檢查或重新產生？</h3>
       <ul>
-        <li>⑤ 新論文和舊內容矛盾 → 不覆蓋，寫成「爭議與矛盾」段落</li>
-        <li>⑥ 斷鏈 → 回 ④ 修正</li>
-        <li>③ 分類放不進去 → 標 <code>[taxonomy?]</code>，必要時回頭改 schema</li>
-        <li>Ⓔ Ⓕ Ⓖ 任一項不通過 → 回 Ⓓ 重新產生該頁</li>
+        <li>C1：wiki 缺頁 → 先回匯入迴圈補頁</li>
+        <li>C2／G2：結構問題（一頁講兩件事、名詞沒解釋）→ 改 ② 大綱</li>
+        <li>C3／G3：數字不在 wiki、說法比 wiki 強 → 改 ③；wiki 本身有錯 → 回 wiki</li>
+        <li>C4／G4：HTML 出現 ③ 沒有的字 → 回 ③；版面問題 → 留在 ④</li>
       </ul>
     </div>
     <div class="card kin">
       <h3>💡 為什麼這樣設計？</h3>
       <ul>
-        <li><b>匯入和簡報分開</b>：wiki 是長期累積的，簡報只是從 wiki 取出來的一種輸出</li>
-        <li><b>所有內容都要能追溯</b>：每個數字都要找得到對應的 wiki 頁，wiki 頁再對應到原始 PDF</li>
-        <li><b>檢查要越早越好</b>：越晚發現錯，要重做的東西越多（見第六節）</li>
+        <li><b>結構和內容分開確認</b>：順序錯和數字錯是兩種問題，應該在不同的節點被攔下</li>
+        <li><b>一個節點一個檔案</b>：出錯時只要改那個檔案和它的下游</li>
+        <li><b>HTML 只能用 ③ 的文字</b>：用腳本強制，內容錯誤就不可能在最後一步才混進來</li>
       </ul>
     </div>
   </div>
@@ -256,16 +264,15 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
 <!-- 5 -->
 <section id="s5">
   <h2><span class="hanko">五</span>一次實際執行的紀錄</h2>
-  <p>以下是 2026-11-15 產生<b>入門教學版簡報</b>那一次的執行（Ⓐ～Ⓗ），完整紀錄見 <a href="llm-rl-uav-teaching.sources.md">出處對照表與核對紀錄</a>。</p>
+  <p>以下是用 graph 流程產生<b>入門教學版簡報</b>的那一次執行，完整紀錄見 <a href="llm-rl-uav-intro/check-log.md">檢查紀錄</a>。</p>
   <ol class="timeline">
-    <li><b>Ⓐ 查 wiki</b>：從 index 找出 ctde、hierarchical-llm-rl、imitation-learning 等概念頁，以及各任務頁和 3 篇 core 論文頁。</li>
-    <li class="bad"><b>Ⓑ 發現缺頁</b>：教學簡報一定要講「RL 是什麼」「LLM 是什麼」，但 wiki 沒有入門頁。→ 先在 wiki 新增 <code>reinforcement-learning</code>、<code>large-language-model</code> 兩頁，並標明基本定義屬於背景知識、不是論文內容。wiki 從 45 頁變成 47 頁。</li>
-    <li><b>Ⓒ 出處對照表</b>：列出 18 頁內容各自用哪些 wiki 頁面、哪些數字，然後才開始寫簡報。</li>
-    <li><b>Ⓓ 產生簡報</b>：22 頁 HTML（reveal.js），沿用第一份簡報的大正和風版型。</li>
-    <li><b>Ⓔ 數字自動比對</b>：用腳本把簡報裡的 28 個數字逐一比對 wiki 全文。只有「47」不在 wiki 裡，那是 wiki 頁數，實際數過確認正確。</li>
-    <li class="bad"><b>Ⓕ 人工核對說法</b>：抓到 1 處說得比來源更強。原本寫「少了檢查員，LLM 的幻覺讓耗能多了 58%」，但 wiki 只說「只用 LLM 時耗能多 58%」，沒有說差距全部來自幻覺。→ 回 Ⓓ 改寫。</li>
-    <li class="bad"><b>Ⓖ 逐頁截圖</b>：RL 循環圖的文字壓在虛線上；流程圖擠在半欄裡。→ 回 Ⓓ 修版面，再截圖確認。</li>
-    <li><b>Ⓗ 完成</b>：連結檢查 47 頁、0 斷鏈、0 孤兒頁；在 <code>log.md</code> 追加一筆紀錄。</li>
+    <li><b>⓪ 需求單 → G0</b>：寫下對象（沒學過 RL 的同學）、時長（約 15 分鐘）、聽完要記住的三件事。我確認後才往下做。</li>
+    <li><b>① 素材表 → C1</b>：從 wiki 挑出 15 筆素材。腳本確認引用的 wiki 頁都存在、所有數字都在 wiki 裡（0 缺）；這次不需要補頁。</li>
+    <li class="bad"><b>② 大綱 → C2 → G2</b>：19 頁、每頁一句重點。自查抓到 3 處：「LLM 上機的難題」那頁原本講三件事、用了外行聽不懂的名詞（embedding、CMDP）、多一頁名詞辭典。→ 在 ② 內修正，我確認大綱。</li>
+    <li class="bad"><b>③ 逐頁內容 → C3 → G3</b>：腳本確認 23 個數字、7 筆參考文獻都對得上。人工核對抓到 3 處說得比 wiki 更強：「樣本效率」被寫成「速度」、多了一個 wiki 沒有的「反而」、「2D 設定」被擴大到全部論文。→ 在 ③ 內修正，我按章節確認。</li>
+    <li class="bad"><b>④ HTML → C4</b>：腳本確認 HTML 上 240 段文字都在 ③ 裡（另外故意塞一句假數字，確認腳本抓得到）。三輪截圖抓到 5 處版面問題：字太小，以及 4 處重疊或換行。→ 在 ④ 內修正。</li>
+    <li class="bad"><b>G4 我預覽</b>：要求封面加上作者。→ 依規則<b>退回 ③</b> 先加字，再改 HTML，文字比對 241/241。</li>
+    <li><b>⑤ 發布</b>：定稿，在 <code>log.md</code> 追加紀錄、commit。</li>
   </ol>
   <h3 style="margin-top:22px">匯入迴圈的執行結果（2 批）</h3>
   <table>
@@ -280,34 +287,51 @@ footer{margin:60px 0 0;padding:20px 0 40px;color:var(--muted);font-size:14px;}
   <h2><span class="hanko">六</span>反思</h2>
   <div class="qa">
     <div class="q">Q1. 哪一個節點最常出錯？</div>
-    <p><strong>「Ⓓ 產生簡報」</strong>。錯的不是版面，而是<b>內容偏離 wiki</b>：</p>
+    <p><strong>產生簡報內容的節點</strong>。錯的不是版面，而是<b>內容偏離 wiki</b>：</p>
     <ul>
-      <li>第一份簡報：MAPPO 那頁把 CI-HRL 的說法寫錯，參考文獻標題是憑印象改寫的</li>
-      <li>教學版：把「只用 LLM 多耗 58%」說成「幻覺造成 58%」</li>
+      <li>第一份簡報（文獻導讀）：MAPPO 那頁把 CI-HRL 的說法寫錯，參考文獻標題是憑印象改寫的</li>
+      <li>第一版教學簡報：把「只用 LLM 多耗 58%」說成「幻覺造成 58%」</li>
+      <li>這次的 graph 版：在 ③ 又抓到 3 處，例如把「樣本效率」寫成「速度」</li>
     </ul>
-    <p>共同原因：LLM 寫簡報時會<b>改寫、簡化</b>原文，而改寫的過程容易把說法變強或變形。教學版要用比喻、要白話，這個風險更高。</p>
+    <p>共同原因：LLM 寫簡報時會<b>改寫、簡化</b>原文，改寫時容易把說法變強或變形。教學簡報要用比喻、要白話，這個風險更高。三次都是同一類錯誤，所以這是這個節點固有的問題，不是偶發失誤。</p>
     <p>次常出錯的是匯入時的分類節點 ③：第一批 8 篇裡有 5 篇放不進原本「LLM+RL+UAV」的框架。</p>
   </div>
   <div class="qa">
     <div class="q">Q2. 發現問題後，把檢查往前移到哪一步？</div>
-    <p>從「寫完再看」移到<strong>寫之前的 Ⓒ 出處對照表</strong>：每一頁先寫下要用哪個 wiki 頁面、哪個數字，簡報只能用表上的內容。另外加了兩道機械式檢查：</p>
+    <p>移了兩次：</p>
     <ul>
-      <li><b>Ⓑ 缺頁檢查</b>：wiki 沒有的內容先補進 wiki，簡報不直接用一般知識</li>
-      <li><b>Ⓔ 數字自動比對</b>：用腳本確認每個數字都在 wiki 裡</li>
+      <li><b>第一次</b>（第一版教學簡報）：從「做完 HTML 再看」移到<b>寫之前的出處對照表</b>，並加上數字自動比對。</li>
+      <li><b>第二次</b>（這次的 graph 版）：把「寫簡報」拆成 <strong>② 大綱</strong> 和 <strong>③ 逐頁內容</strong> 兩個節點，各自設檢查站和我的確認。內容的核對全部在 ③ 完成，<b>HTML 之前</b>就結束。</li>
     </ul>
-    <p>結果：第一份簡報是寫完才發現 2 類內容錯誤；教學版只有 1 處，而且在完成前就被 Ⓕ 抓到。</p>
+    <p>結果：</p>
+    <ul>
+      <li>第一份簡報：做完才發現 2 類內容錯誤。</li>
+      <li>第一版教學簡報：1 處內容錯誤，在 HTML 完成後的人工核對才抓到。</li>
+      <li>graph 版：3 處內容錯誤，全部在 ③ 就攔下，HTML 階段只剩版面問題。</li>
+    </ul>
   </div>
   <div class="qa">
     <div class="q">Q3. 有沒有因此修改 workflow / graph？為什麼？</div>
-    <p><b>有，改了三處：</b></p>
+    <p><b>有。</b>簡報產生從一條直線（查 wiki → 寫 HTML → 檢查 → 回頭重寫）改成上圖的分段 graph：</p>
     <ul>
-      <li><b>簡報流程新增 Ⓑ Ⓒ Ⓔ</b>（上圖粗框與紅框）：因為最常出錯的是內容，所以檢查要針對「內容是否來自 wiki」，而不是只檢查版面</li>
-      <li><b>匯入流程加上「分類不合 → 改 schema」的回頭路</b>：第一批就證明原本的分類太窄，硬塞會讓 wiki 失真</li>
-      <li><b>每批匯入後固定跑 ⑥ 連結檢查</b>：斷鏈是 LLM 自己編出頁面名稱造成的，人工很難發現</li>
+      <li><b>每個節點產出一個檔案</b>：需求單、素材表、大綱、逐頁內容、HTML。要改哪一層，就只改那個檔案和它的下游。</li>
+      <li><b>回饋依層級退回</b>：結構問題回 ②、內容問題回 ③、版面問題留在 ④。這次我要求加作者，就是照這條規則先回 ③。</li>
+      <li><b>HTML 只能使用 ③ 的文字</b>：用腳本 <code>check_deck_text.py</code> 強制執行。</li>
     </ul>
-    <p>設計原則：<em>能用程式檢查的就用程式</em>（數字、連結），<em>需要判斷的才用人工</em>（說法強度、分類）。</p>
+    <p>原因：舊流程的檢查集中在最後，一發現錯就要整份重做，而且結構錯誤（頁面順序、一頁講太多）和事實錯誤混在一起。分段之後，<em>結構由大綱把關、事實由逐頁內容把關、外觀由 HTML 把關</em>，每種錯誤都在最便宜的地方被攔下。</p>
+    <p>匯入流程也改了兩處：</p>
+    <ul>
+      <li>加上「分類不合 → 改 schema」的回頭路。</li>
+      <li>每批匯入後固定跑連結檢查，因為斷鏈是 LLM 自己編出頁面名稱造成的。</li>
+    </ul>
+    <p>設計原則：<em>能用程式檢查的就用程式</em>（數字、連結、HTML 文字），<em>需要判斷的才用人工</em>（說法強度、分類、結構）。</p>
   </div>
-  <div class="note obs">還沒解決的部分：Ⓕ「說法強度」目前仍要靠逐條人工核對，沒有自動化。另外，wiki 本身的正確性仍取決於 ② 閱讀 PDF 的品質。目前會在論文頁標註「待確認」，但沒有回頭抽查原文的固定步驟，這是下一步可以補的檢查節點。</div>
+  <div class="note obs">還沒解決的部分：
+    <ul style="margin:6px 0 0">
+      <li>C3 的「說法強度」仍要靠逐條人工核對，沒有自動化。</li>
+      <li>wiki 本身的正確性仍取決於閱讀 PDF 的品質。目前會在論文頁標註「待確認」，但沒有回頭抽查原文的固定步驟，這是下一個可以補的檢查節點。</li>
+    </ul>
+  </div>
 </section>
 
 <footer>

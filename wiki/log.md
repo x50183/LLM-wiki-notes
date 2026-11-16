@@ -50,3 +50,7 @@
 - 新增：slides/llm-rl-uav-intro/（00-brief、01-materials、02-outline、03-content、deck.html、check-log）
 - 新增：assets/tools/check_deck_text.py（C4 檢查：HTML 上的文字必須都在 03-content.md 裡）
 - 備註：流程為 ⓪ 需求單 → ① 素材 → ② 大綱 → ③ 逐頁內容 → ④ HTML，每一步都有檢查站（C 是自動或自查，G 是使用者確認）。這次沒有任何退回。C2 抓到 3 處結構問題，C3 抓到 3 處說得比 wiki 更強，C4 只剩版面問題（5 處）。舊的教學簡報保留不動。
+
+## [2026-11-16] query | 作業說明頁改為 graph 版
+- 修改：slides/assignment-report.html（主要作品改成 slides/llm-rl-uav-intro/deck.html；流程圖的簡報線換成 ⓪～⑤ 加檢查站；執行紀錄換成這次的 check-log；反思補上第二次「檢查往前移」和修改 graph 的原因；連到需求單（需求摘要））
+- 備註：graph 版簡報經 G4 定稿
