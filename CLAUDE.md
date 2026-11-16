@@ -178,7 +178,7 @@ updated: 2026-11-14
 
 ## 8. 簡報（slides/）
 
-- 格式：單一 HTML 檔、可翻頁（例如 reveal.js），檔名 `slides/YYYY-MM-DD-主題.html`。
+- 格式：單一 HTML 檔、可翻頁（例如 reveal.js），檔名 `slides/主題.html`（英文 kebab-case，**不加日期**；使用者於 2026-11-16 決定），簡報封面也不寫日期。
 - 風格：**大正和風 × 可愛**（使用者於 2026-11-15 選定）。預設使用 `assets/chibi-taisho/` 的角色，版面搭配和紙底色、藍染與朱紅、傳統紋樣做裝飾，字體用圓潤或明朝體（例如 Zen Maru Gothic、Shippori Mincho）。
   `assets/chibi/`（粉彩卡通）和 `assets/chibi-pixel/`（像素風）保留作為備用，除非使用者指定，否則不使用。
 - 內容從 wiki 頁面整理，每頁都要標註論文出處。
@@ -192,7 +192,7 @@ updated: 2026-11-14
 - **大正和風版本**（`assets/chibi-taisho/`，同一組角色與檔名）：受和風熱血動漫啟發的原創設計，有頭巾、傳統紋樣（青海波、七寶、矢絣）、浮世繪風的波浪與火焰、印章。
   配色：墨色外框 `#2B2024`（4.5px）、藍染 `#2E3A6B`、朱紅 `#B8323C`、金 `#D9A441`、和紙 `#F4EAD5`；腮紅用斜線 `///`。
   **不要**加入任何現有動漫作品的角色辨識元素（特定角色的羽織花色、耳飾、作品標誌文字等），簡報可能公開。
-- **視覺規範**（2026-11-15 第一份簡報 `slides/2026-11-15-llm-rl-uav-overview.html` 定下，之後沿用同一份 CSS）：
+- **視覺規範**（2026-11-15 第一份簡報 `slides/llm-rl-uav-overview.html` 定下，之後沿用同一份 CSS）：
   - reveal.js 5.1.0（cdnjs），畫布 1280×720，`center:false`、轉場 `fade`、頁碼 `c/t`。
   - 底色和紙 `#F4EAD5` 加細點紋理；一般頁左側 22px 矢絣帶、底部青海波帶（都用 CSS data-URI SVG）。
   - 標題用 Shippori Mincho 800，左邊放一個朱紅外框、旋轉 -6° 的單字印章（例如「補」「層」「型」）；內文用 Zen Maru Gothic。

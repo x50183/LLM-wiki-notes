@@ -40,3 +40,8 @@
 ## [2026-11-15] query | 作業說明頁
 - 新增：slides/2026-11-15-assignment-report.html（主題、wiki 成果、簡報連結、loop/graph 流程圖、一次執行紀錄、反思）
 - 備註：流程圖分三條線（建立規則／匯入迴圈／簡報產生），標出重複與退回的路徑；反思結論是「產生簡報」最常出錯（內容偏離 wiki），檢查已經往前移到出處對照表
+
+## [2026-11-16] schema | 簡報檔名不加日期
+- 修改：CLAUDE.md §8（檔名改為 `slides/主題.html`，封面不寫日期）
+- 改名：slides/ 下 4 個檔案拿掉 `2026-11-15-` 前綴（assignment-report、llm-rl-uav-overview、llm-rl-uav-teaching、llm-rl-uav-teaching.sources），index.html 與說明頁的連結一起更新
+- 備註：兩份簡報封面的日期已移除；上方舊紀錄保留原檔名，不回頭修改
