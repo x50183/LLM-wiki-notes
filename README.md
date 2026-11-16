@@ -12,7 +12,7 @@
 |---|---|
 | `wiki/` | 13 篇論文、47 頁 wiki（papers / concepts / tasks / entities / synthesis） |
 | `slides/llm-rl-uav-intro/` | 教學簡報，以及產生它的每一步：需求單 → 素材 → 大綱 → 逐頁內容 → HTML → 檢查紀錄 |
-| `slides/` | 作業說明頁、文獻導讀版（進階） |
+| `slides/` | 作業說明頁、文獻導讀版（進階）、第一版教學簡報（改版前，供對照） |
 | `CLAUDE.md` | wiki 的規則檔（schema） |
 
 論文 PDF 有著作權，不放在這個 repo。

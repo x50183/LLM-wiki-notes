@@ -12,6 +12,3 @@ desktop.ini
 .DS_Store
 # Obsidian 個人設定
 .obsidian/
-# 舊版教學簡報：只留本機，不公開
-slides/llm-rl-uav-teaching.html
-slides/llm-rl-uav-teaching.sources.md
