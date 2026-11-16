@@ -45,3 +45,8 @@
 - 修改：CLAUDE.md §8（檔名改為 `slides/主題.html`，封面不寫日期）
 - 改名：slides/ 下 4 個檔案拿掉 `2026-11-15-` 前綴（assignment-report、llm-rl-uav-overview、llm-rl-uav-teaching、llm-rl-uav-teaching.sources），index.html 與說明頁的連結一起更新
 - 備註：兩份簡報封面的日期已移除；上方舊紀錄保留原檔名，不回頭修改
+
+## [2026-11-16] query | 用 graph 流程重做教學簡報
+- 新增：slides/llm-rl-uav-intro/（00-brief、01-materials、02-outline、03-content、deck.html、check-log）
+- 新增：assets/tools/check_deck_text.py（C4 檢查：HTML 上的文字必須都在 03-content.md 裡）
+- 備註：流程為 ⓪ 需求單 → ① 素材 → ② 大綱 → ③ 逐頁內容 → ④ HTML，每一步都有檢查站（C 是自動或自查，G 是使用者確認）。這次沒有任何退回。C2 抓到 3 處結構問題，C3 抓到 3 處說得比 wiki 更強，C4 只剩版面問題（5 處）。舊的教學簡報保留不動。
